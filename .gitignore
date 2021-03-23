@@ -1,0 +1,8 @@
+/shelf/
+*.pyc
+*.log
+*.pot
+db.sqlite3
+/.idea/
+/static/
+/__pycache__/
