@@ -1,16 +1,16 @@
+
 from django.db import models
 
 
 class Strategy(models.Model):
-    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=64)
     description = models.CharField(max_length=2056)
     date_create = models.DateField()
     date_modify = models.DateField()
     is_active = models.BooleanField(default=False)
-    id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE, related_name="id")
-    id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE, related_name="id")
-    annual_return = models.DecimalField(..., max_digits=5, decimal_places=2)
+    category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE)
+    author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE)
+    annual_return = models.FloatField()
     tags = models.ManyToManyField('StrategyTag')
 
     class Meta:
@@ -18,12 +18,12 @@ class Strategy(models.Model):
         verbose_name = 'Стратегия'
         verbose_name_plural = 'Стратегии'
 
-    def __str__(self):
-        return self.name
-
     @property
     def is_revenue(self):
         return True if self.annual_return > 0 else False
+
+    def __str__(self):
+        return self.title
 
 
 class StrategyTag(models.Model):
@@ -37,7 +37,6 @@ class StrategyTag(models.Model):
 
 
 class StrategyCategory(models.Model):
-    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32, unique=True)
 
     class Meta:
@@ -50,7 +49,6 @@ class StrategyCategory(models.Model):
 
 
 class StrategyAuthor(models.Model):
-    id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     email = models.EmailField(max_length=254)
