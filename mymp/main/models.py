@@ -8,9 +8,9 @@ class Strategy(models.Model):
     date_create = models.DateField()
     date_modify = models.DateField()
     is_active = models.BooleanField(default=False)
-    category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE)
-    author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE)
-    annual_return = models.FloatField()
+    id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE)
+    id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE)
+    annual_return = models.FloatField(default=0)
     tags = models.ManyToManyField('StrategyTag')
 
     class Meta:
