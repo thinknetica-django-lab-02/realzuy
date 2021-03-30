@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p class="lead">Главная страница пока пустая</p>
+
+  {% if turn_on_block %}
+    <div>
+      <p class="lead">turn_on_block is True</p>
+    </div>
+  {% else %}
+    <p class="lead">Главная страница пока пустая</p>
+  {% endif %}
 
 {% endblock %}
