@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load my_filters %}
 
 {% block content %}
 
@@ -10,4 +11,8 @@
     <p class="lead">Главная страница пока пустая</p>
   {% endif %}
 
+  <p class="lead">Исходный текст: {{ some_text}} <br>
+  После фильтра: {{ some_text|my_text_reverse }} </p>
+
+  <p class="lead">Текущее время сервера {% current_time "%H:%M" %}</p>
 {% endblock %}

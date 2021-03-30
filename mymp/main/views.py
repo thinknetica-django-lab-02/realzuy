@@ -4,5 +4,6 @@ def index(request):
     return render(
         request,
         'index.html',
-        context={'turn_on_block': True},
+        context={'turn_on_block': True,
+                 'some_text': 'Привет, мир!'},
     )
