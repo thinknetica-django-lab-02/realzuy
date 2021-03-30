@@ -12,6 +12,7 @@ class Strategy(models.Model):
     id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE)
     annual_return = models.FloatField(default=0)
     tags = models.ManyToManyField('StrategyTag')
+    min_nav = models.IntegerField(null=False, verbose_name='Минимальный СЧА')
 
     class Meta:
         ordering = ['title']
