@@ -4,6 +4,6 @@ from .views import StrategyList, StrategyDetail
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('strategies/', StrategyList.as_view()),
+    path('strategies/', StrategyList.as_view(), name='strategies'),
     path('strategies/<int:pk>/', StrategyDetail.as_view(), name='strategy-detail'),
 ]

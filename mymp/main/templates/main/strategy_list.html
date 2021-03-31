@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load my_filters %}
 
 {% block title %}<title>Список стратегий</title>{% endblock %}
 
@@ -6,7 +7,42 @@
     <h2>Стратегии</h2>
     <ul>
         {% for strategy in strategies %}
-            <li><a href="{% url 'strategy-detail' strategy.id %}">{{ strategy.title }} ({{ strategy.annual_return }}%)</a></li>
+            <li><a href="{% url 'strategy-detail' strategy.id %}">{{ strategy.title }}</a> (Доходность: {{ strategy.annual_return }}%,
+                Теги: {% for tag in strategy.tags.all %} <a href="{{ request.path }}?tag={{ tag }}">{{ tag }}</a> {% if not forloop.last %}, {% endif %}{% endfor %} )</li>
         {% endfor %}
     </ul>
+
+
+    <div class="pagination">
+        {% if is_paginated %}
+            <nav>
+              <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{{ tag_url }} ">←</a>
+                </li>
+                {% endif %}
+
+                {% for i in paginator.page_range %}
+                    {% ifequal i page_obj.number %}
+                    <li class="page-item disabled">
+                        <a class="page-link" >{{ i }}</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="page-link" href="?page={{ i }}{{ tag_url }}">{{ i }}</a>
+                    </li>
+                    {% endifequal %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{{ tag_url }}">→</a>
+                    </li>
+                {% endif %}
+              </ul>
+            </nav>
+        {% endif %}
+    </div>
+
 {% endblock %}
