@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load my_filters %}
+
+{% block content %}
+    <h2>{{ strategy.title }}</h2>
+    <p class="card-body">
+        <p>{% get_verbose_field_name strategy "is_active" %}: {{strategy.is_active_text}}</p>
+        <p>{% get_verbose_field_name strategy "date_create" %}: {{strategy.date_create}}</p>
+        <p>{% get_verbose_field_name strategy "description" %}: {{strategy.description}}</p>
+        <p>{% get_verbose_field_name strategy "annual_return" %}: {{strategy.annual_return}}</p>
+        <p>{% get_verbose_field_name strategy "min_nav" %}: {{strategy.min_nav}}</p>
+        <p>{% get_verbose_field_name strategy "id_author" %}: {{strategy.id_author}}</p>
+        <p>{% get_verbose_field_name strategy "id_category" %}: {{strategy.id_category}}</p>
+    </div>
+
+{% endblock %}
