@@ -19,7 +19,7 @@
     <ul class="form-inline my-2 my-lg-0">
       <li class="navbar-brand">
         {% if user is not None%}
-          {{ user.get_username }}
+          <a class="nav-link" href="/accounts/profile/">{{ user.get_username }}</a>
         {% else %}
           <button class="btn btn-secondary my-2 my-sm-0">Войти</button></form>
         {% endif %}
