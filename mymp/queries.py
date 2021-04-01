@@ -17,6 +17,8 @@ a1 = StrategyAuthor(first_name='Иван', last_name='Иванов', email='auth
 a1.save()
 a2 = StrategyAuthor(first_name='Петр', last_name='Петров', email='petrov@gmail.com')
 a2.save()
+a3 = StrategyAuthor(first_name='Сидр', last_name='Сидоров', email='sidorov@gmail.com')
+a3.save()
 StrategyAuthor.objects.all()
 
 s1 = Strategy(title='Strategy 1',
@@ -43,7 +45,18 @@ s3 = Strategy(title='Strategy 3',
               annual_return = -5)
 s3.save()
 s3.tags.add(t2)
+s4 = Strategy(title='Strategy 11',
+              date_create=today,
+              date_modify=today,
+              id_category=StrategyCategory.objects.get(id=2),
+              id_author=a3,
+              min_nav=100,
+              annual_return = 7)
+s4.save()
+s4.tags.add(StrategyTag.objects.get(id=1))
 
 Strategy.objects.all()
 Strategy.objects.filter(id_category=1)
 Strategy.objects.filter(id_category=2)
+
+
