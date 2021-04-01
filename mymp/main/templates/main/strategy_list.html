@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Список стратегий</title>{% endblock %}
+
+{% block content %}
+    <h2>Стратегии</h2>
+    <ul>
+        {% for strategy in strategies %}
+            <li><a href="{% url 'strategy-detail' strategy.id %}">{{ strategy.title }} ({{ strategy.annual_return }}%)</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

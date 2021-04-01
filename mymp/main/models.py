@@ -1,16 +1,15 @@
-
 from django.db import models
 
 
 class Strategy(models.Model):
     title = models.CharField(max_length=64)
-    description = models.CharField(max_length=2056)
-    date_create = models.DateField()
+    description = models.CharField(max_length=2056, verbose_name="Описание")
+    date_create = models.DateField(verbose_name="Дата создания")
     date_modify = models.DateField()
-    is_active = models.BooleanField(default=False)
-    id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE)
-    id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE)
-    annual_return = models.FloatField(default=0)
+    is_active = models.BooleanField(default=False, verbose_name='Состояние')
+    id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE, verbose_name='Категория')
+    id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE, verbose_name="Автор")
+    annual_return = models.FloatField(default=0, verbose_name="Годовая доходность")
     tags = models.ManyToManyField('StrategyTag')
     min_nav = models.IntegerField(null=False, verbose_name='Минимальный СЧА')
 
@@ -18,6 +17,10 @@ class Strategy(models.Model):
         ordering = ['title']
         verbose_name = 'Стратегия'
         verbose_name_plural = 'Стратегии'
+
+    @property
+    def is_active_text(self):
+        return "Активна" if self.is_active else "Не активна"
 
     @property
     def is_revenue(self):
