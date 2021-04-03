@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
-
+from django.contrib import auth
 from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
 

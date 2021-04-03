@@ -1,6 +1,8 @@
 from . import views
-from .views import StrategyList, StrategyDetail, StrategyCreate, StrategyUpdate, error_404
+from .views import *
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,3 +14,7 @@ urlpatterns = [
     path('strategies/<int:pk>/edit/', StrategyUpdate.as_view(), name='strategy-form'),
 ]
 handler404 = error_404
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

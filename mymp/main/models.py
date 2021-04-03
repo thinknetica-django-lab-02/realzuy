@@ -2,18 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from sorl.thumbnail import ImageField
 
 class Strategy(models.Model):
-    title = models.CharField(max_length=64)
+    title = models.CharField(max_length=64,verbose_name="Название")
     description = models.CharField(max_length=2056, verbose_name="Описание")
     date_create = models.DateField(verbose_name="Дата создания")
-    date_modify = models.DateField()
+    date_modify = models.DateField(verbose_name="Дата последнего изменения")
     is_active = models.BooleanField(default=False, verbose_name='Состояние')
     id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE, verbose_name='Категория')
     id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE, verbose_name="Автор")
     annual_return = models.FloatField(default=0, verbose_name="Годовая доходность")
     tags = models.ManyToManyField('StrategyTag')
     min_nav = models.IntegerField(null=False, verbose_name='Минимальный СЧА')
+    pic_yield = ImageField(upload_to="pics/", verbose_name='График доходности', blank=True)
 
     class Meta:
         ordering = ['title']
@@ -75,6 +77,7 @@ class Profile(models.Model):
     user = models.OneToOneField(auto_created=True, on_delete=models.CASCADE, parent_link=True,
                                 primary_key=True, serialize=False, to='auth.user')
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
+    avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
