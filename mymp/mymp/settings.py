@@ -25,7 +25,7 @@ SECRET_KEY = '0*b+th)tt0r2@p*)v^dy(sq#de4d50^fi8$ul*_c6amzhtq%u&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -128,3 +128,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = './static/'
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
