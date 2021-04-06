@@ -1,11 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 
+
 class Strategy(models.Model):
-    title = models.CharField(max_length=64,verbose_name="Название")
+    title = models.CharField(max_length=64, verbose_name="Название")
     description = models.CharField(max_length=2056, verbose_name="Описание")
     date_create = models.DateField(verbose_name="Дата создания")
     date_modify = models.DateField(verbose_name="Дата последнего изменения")
@@ -73,9 +74,10 @@ class StrategyAuthor(models.Model):
     def __str__(self):
         return self.full_name
 
+
 class Profile(models.Model):
-    user = models.OneToOneField(auto_created=True, on_delete=models.CASCADE, parent_link=True,
-                                primary_key=True, serialize=False, to='auth.user')
+    user = models.OneToOneField(primary_key=True, auto_created=True, on_delete=models.CASCADE, parent_link=True,
+                                serialize=False, to='auth.user')
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
 
@@ -88,3 +90,16 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        grp, created = Group.objects.get_or_create(name='common users')
+        instance.groups.add(grp)
+
+
+def next_profile_id():
+    x = Strategy.objects.all().last()
+    if not x.id:
+        return 1
+    return x.id+1
