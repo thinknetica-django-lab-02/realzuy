@@ -1,12 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
+from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
+
+
+def error_404(request, exception):
+    return render(request, 'errors/404.html')
 
 
 def index(request):
@@ -22,7 +27,7 @@ class StrategyList(ListView):
     model = Strategy
     context_object_name = 'strategies'
     queryset = Strategy.objects.order_by('-annual_return')
-    paginate_by = 2
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(StrategyList, self).get_context_data(**kwargs)
@@ -46,6 +51,52 @@ class StrategyList(ListView):
 class StrategyDetail(DetailView):
     model = Strategy
     context_object_name = 'strategy'
+
+
+class StrategyCreate(CreateView):
+    model = Strategy
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_title'] = "Добавление стратегии"
+        return context
+
+    def get_success_url(self):
+        return '/strategies/' + str(self.object.id) + '/'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+            return handler(request, *args, **kwargs)
+        else:
+            return redirect("login")
+
+
+class StrategyUpdate(UpdateView):
+    model = Strategy
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form_title'] = "Редактирование стратегии"
+        return context
+
+    def get_success_url(self):
+        return '/strategies/' + str(self.object.id) + '/'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.method.lower() in self.http_method_names:
+                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            else:
+                handler = self.http_method_not_allowed
+            return handler(request, *args, **kwargs)
+        else:
+            return redirect("login")
 
 
 @login_required
