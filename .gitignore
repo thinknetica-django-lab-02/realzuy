@@ -5,6 +5,5 @@
 db.sqlite3
 /.idea/
 /static/
-/media/users/**
 /__pycache__/
 /mymp/media/
