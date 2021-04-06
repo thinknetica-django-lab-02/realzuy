@@ -1,14 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import transaction
-from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 
-from .forms import UserForm
+from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
-
 
 
 def index(request):
@@ -24,7 +22,7 @@ class StrategyList(ListView):
     model = Strategy
     context_object_name = 'strategies'
     queryset = Strategy.objects.order_by('-annual_return')
-    paginate_by = 10
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super(StrategyList, self).get_context_data(**kwargs)
@@ -49,11 +47,12 @@ class StrategyDetail(DetailView):
     model = Strategy
     context_object_name = 'strategy'
 
+
 @login_required
 @transaction.atomic
 def update_profile(request):
     User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
-    ProfileFormset = inlineformset_factory(User, Profile, fields='__all__', can_delete=False)
+
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         formset = ProfileFormset(request.POST, instance=request.user.profile)

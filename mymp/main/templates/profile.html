@@ -14,7 +14,6 @@
   </table>
   <button class="btn btn-primary" type="submit">Сохранить</button>
 </form>
-
 {% if messages %}
   {% for message in messages %}
     {% if message.tags == "success" %}
@@ -27,6 +26,15 @@
       </div>
     {% endif %}
   {% endfor %}
+{% endif %}
+
+
+{% if formset.non_form_errors  %}
+  <div class="non-field-errors">
+    {% for err in formset.non_form_errors  %}
+      <p class="form-error">{{ err }}</p>
+    {% endfor %}
+  </div>
 {% endif %}
 
 {% endblock %}
