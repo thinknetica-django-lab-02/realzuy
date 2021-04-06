@@ -1,4 +1,4 @@
-
+{% load thumbnail %}
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="{% url 'index' %}">MyMP</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,9 @@
         <span class="nav-link active" >
           <a href="/accounts/logout/">Выйти</a>
           <a href="/accounts/profile/">{{ user.get_username }}</a>
+          {% thumbnail user.profile.avatar "32x32" crop="center" as im %}
+              <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+          {% endthumbnail %}
         </span>
         {% else %}
         <span><a class="nav-link" href="/accounts/login/">Войти</a></span>
