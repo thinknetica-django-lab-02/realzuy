@@ -10,7 +10,8 @@ urlpatterns = [
     path('strategies/<int:pk>/', StrategyDetail.as_view(), name='strategy-detail'),
     path('accounts/profile/', views.update_profile, name='profile-update'),
     path('strategies/add/', StrategyCreate.as_view(), name='strategy-form'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
     path('strategies/<int:pk>/edit/', StrategyUpdate.as_view(), name='strategy-form'),
 ]
 handler404 = error_404

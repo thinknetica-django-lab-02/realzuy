@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'ckeditor',
     'sorl.thumbnail',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +77,28 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '39668987813-60rjqku6bbq4qh64igp3t2ecu2nc2vsv.apps.googleusercontent.com',
+            'secret': 'Eb85pREGJQ-VciST-YEZfk8G',
+            'key': ''
+        }
+    }
+}
 
 WSGI_APPLICATION = 'mymp.wsgi.application'
 
