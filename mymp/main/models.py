@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
+from main.messages import *
 
 
 class Strategy(models.Model):
@@ -97,9 +98,5 @@ def create_user_profile(sender, instance, created, **kwargs):
         grp, created = Group.objects.get_or_create(name='common users')
         instance.groups.add(grp)
 
+        SendWelcomeMessage(instance)
 
-def next_profile_id():
-    x = Strategy.objects.all().last()
-    if not x.id:
-        return 1
-    return x.id+1

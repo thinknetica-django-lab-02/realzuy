@@ -6,10 +6,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
-from django.contrib import auth
 from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
-
+from django.conf import settings
 
 def error_404(request, exception):
     return render(request, 'errors/404.html')
@@ -78,7 +77,7 @@ class StrategyCreate(CreateView):
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
         else:
-            return redirect("/accounts/login/")
+            return redirect(settings.LOGIN_URL)
 
 
 class StrategyUpdate(UserPassesTestMixin, UpdateView):
@@ -101,7 +100,7 @@ class StrategyUpdate(UserPassesTestMixin, UpdateView):
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
         else:
-            return redirect("/accounts/login/")
+            return redirect(settings.LOGIN_URL)
 
 
 @login_required

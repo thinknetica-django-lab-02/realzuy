@@ -158,3 +158,10 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_URL = '/accounts/login/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "mail.hosting.reg.ru"
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'noreply@talab.ru'
+EMAIL_HOST_PASSWORD = 'Jhsgoweut^&fdjkJHHF75*'
+EMAIL_USE_SSL = True
