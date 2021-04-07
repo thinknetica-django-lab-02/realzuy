@@ -99,6 +99,7 @@ class StrategyUpdate(UpdateView):
             return redirect("login")
 
 
+
 @login_required
 @transaction.atomic
 def update_profile(request):
