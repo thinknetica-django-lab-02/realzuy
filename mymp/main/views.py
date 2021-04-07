@@ -58,7 +58,7 @@ class StrategyDetail(DetailView):
         context['user_is_author'] = self.request.user.groups.filter(name='Authors').exists()
         return context
 
-class StrategyCreate(LoginRequiredMixin, CreateView):
+class StrategyCreate(CreateView):
     model = Strategy
     fields = '__all__'
 
