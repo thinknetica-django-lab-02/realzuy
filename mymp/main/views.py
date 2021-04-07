@@ -1,4 +1,5 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
@@ -52,8 +53,12 @@ class StrategyDetail(DetailView):
     model = Strategy
     context_object_name = 'strategy'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_is_author'] = self.request.user.groups.filter(name='Authors').exists()
+        return context
 
-class StrategyCreate(CreateView):
+class StrategyCreate(LoginRequiredMixin, CreateView):
     model = Strategy
     fields = '__all__'
 
@@ -66,17 +71,17 @@ class StrategyCreate(CreateView):
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.request.user.groups.filter(name='Authors').exists():
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
             else:
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
         else:
-            return redirect("login")
+            return redirect("/accounts/login/")
 
 
-class StrategyUpdate(UpdateView):
+class StrategyUpdate(UserPassesTestMixin, UpdateView):
     model = Strategy
     fields = '__all__'
 
@@ -89,15 +94,14 @@ class StrategyUpdate(UpdateView):
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and self.request.user.groups.filter(name='Authors').exists():
             if request.method.lower() in self.http_method_names:
                 handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
             else:
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
         else:
-            return redirect("login")
-
+            return redirect("/accounts/login/")
 
 
 @login_required
