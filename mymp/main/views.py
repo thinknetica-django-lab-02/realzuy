@@ -109,8 +109,8 @@ def update_profile(request):
     User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
 
     if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        formset = ProfileFormset(request.POST, instance=request.user.profile)
+        user_form = UserForm(request.POST, request.FILES, instance=request.user)
+        formset = ProfileFormset(request.POST, request.FILES, instance=request.user)
         if user_form.is_valid() and formset.is_valid():
             u = user_form.save()
             for form in formset.forms:
@@ -122,5 +122,5 @@ def update_profile(request):
             messages.error(request, 'При обновлении профиля возникли ошибки')
     else:
         user_form = UserForm(instance=request.user)
-        formset = ProfileFormset(instance=request.user.profile)
+        formset = ProfileFormset(instance=request.user)
     return render(request, 'profile.html', locals())
