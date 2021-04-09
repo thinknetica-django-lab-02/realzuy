@@ -7,4 +7,5 @@ db.sqlite3
 /static/
 /__pycache__/
 /mymp/media/
-/mymp/mymp/credentials.py
+*.exe
+credentials.py

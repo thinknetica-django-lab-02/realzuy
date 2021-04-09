@@ -77,8 +77,9 @@ class StrategyAuthor(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(primary_key=True, auto_created=True, on_delete=models.CASCADE, parent_link=True,
-                                serialize=False, to='auth.user')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
 
