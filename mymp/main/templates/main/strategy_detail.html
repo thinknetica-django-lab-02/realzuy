@@ -17,7 +17,7 @@
         <p>{% get_verbose_field_name strategy "id_category" %}: {{strategy.id_category}}</p>
     </div>
 
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user_is_author%}
     <form action="edit/">
         <input class="btn btn-primary" type="submit" value="Редактировать">
     </form>
