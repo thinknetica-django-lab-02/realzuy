@@ -16,7 +16,7 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['birth_date']
+        fields = ['birth_date', 'subscriptions', 'avatar']
 
 
 class ProfileFormset(forms.inlineformset_factory(User, Profile, fields='__all__', can_delete=False, widgets={'birth_date': forms.SelectDateWidget(years=range(1920,2020)),})):
