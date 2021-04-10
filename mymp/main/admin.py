@@ -29,3 +29,7 @@ class StrategyTagAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Subscription)
+class ProfileAdmin(admin.ModelAdmin):
+    pass

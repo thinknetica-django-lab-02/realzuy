@@ -117,6 +117,7 @@ def update_profile(request):
                 up = form.save(commit=False)
                 up.user = u
                 up.save()
+            formset.save() #иначе не сохраняется ManyToMany
             messages.success(request, 'Ваш профиль успешно обновлен!')
         else:
             messages.error(request, 'При обновлении профиля возникли ошибки')

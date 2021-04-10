@@ -35,12 +35,22 @@ class Strategy(models.Model):
     def __str__(self):
         return self.title
 
+@receiver(post_save, sender=Strategy)
+def strategy_post_add_routine(sender, instance, **kwargs):
+    if instance.is_active:
+        for profile in Profile.objects.all():
+            if profile.subscriptions.filter(id=1):
+                SendNewStrategyMessage(instance, profile)
+
+
 
 class StrategyTag(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Тег для стратегий'
+        verbose_name_plural = 'Теги для стратегий'
 
     def __str__(self):
         return self.name
@@ -82,6 +92,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
+    subscriptions = models.ManyToManyField('Subscription', verbose_name='Подписки', blank=True)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -100,4 +111,16 @@ def create_user_profile(sender, instance, created, **kwargs):
         instance.groups.add(grp)
 
         SendWelcomeMessage(instance)
+
+
+class Subscription(models.Model):
+    name = models.CharField(max_length=100, unique=True, verbose_name='Название')
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+
+    def __str__(self):
+        return self.name
 
