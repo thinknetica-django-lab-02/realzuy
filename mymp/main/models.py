@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 from main.messages import *
 
-
 class Strategy(models.Model):
     title = models.CharField(max_length=64, verbose_name="Название")
     description = models.CharField(max_length=2056, verbose_name="Описание")
@@ -124,3 +123,4 @@ class Subscription(models.Model):
     def __str__(self):
         return self.name
 
+from main.schedule import *

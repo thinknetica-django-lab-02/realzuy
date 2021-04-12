@@ -30,3 +30,17 @@ def SendNewStrategyMessage(strategy, profile):
     msg = EmailMultiAlternatives(msg_title, 'New strategy message', settings.EMAIL_HOST_USER, [profile.user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
+
+
+def SendNewStrategiesMessage(strategies, profile):
+    msg_title = 'Появились новые стратегии'
+    ctx = {
+        'title': msg_title,
+        'user_name': profile.user.get_username,
+        'strategies': strategies,
+    }
+    message = get_template('emails/strategies_new.html').render(ctx)
+
+    msg = EmailMultiAlternatives(msg_title, 'New strategies message', settings.EMAIL_HOST_USER, [profile.user.email])
+    msg.attach_alternative(message, "text/html")
+    msg.send()
