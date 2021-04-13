@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 from main.messages import *
+from .tasks import send_welcome_message_schedule
 
 class Strategy(models.Model):
     title = models.CharField(max_length=64, verbose_name="Название")
@@ -33,14 +34,6 @@ class Strategy(models.Model):
 
     def __str__(self):
         return self.title
-
-@receiver(post_save, sender=Strategy)
-def strategy_post_add_routine(sender, instance, **kwargs):
-    if instance.is_active:
-        for profile in Profile.objects.all():
-            if profile.subscriptions.filter(id=1):
-                SendNewStrategyMessage(instance, profile)
-
 
 
 class StrategyTag(models.Model):
@@ -109,7 +102,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         grp, created = Group.objects.get_or_create(name='common users')
         instance.groups.add(grp)
 
-        SendWelcomeMessage(instance)
+        send_welcome_message_schedule.delay(instance.id)
 
 
 class Subscription(models.Model):
@@ -122,5 +115,3 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.name
-
-from main.schedule import *

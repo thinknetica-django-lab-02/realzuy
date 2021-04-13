@@ -3,9 +3,11 @@ import os
 from celery import Celery
 
 # set the default Django settings module for the 'celery' program.
+from celery.schedules import crontab
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mymp.settings')
 
-app = Celery('main')
+app = Celery('tasks')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
@@ -21,3 +23,9 @@ app.autodiscover_tasks()
 def debug_task(self):
     print(f'Request: {self.request!r}')
 
+app.conf.beat_schedule = {
+    'send_new_strategies_weekly': {
+        'task': 'main.tasks.send_new_strategies_weekly_schedule',
+        'schedule': crontab(minute='*')  # day_of_week='mon', hour='12', minute=0),
+    }
+}

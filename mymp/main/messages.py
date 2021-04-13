@@ -1,7 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
-from .models import *
+
 
 def SendWelcomeMessage(user):
     msg_title = 'Welcome to MyMP!'
