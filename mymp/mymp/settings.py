@@ -165,3 +165,4 @@ LOGIN_URL = '/accounts/login/'
 CELERY_TIMEZONE = 'Europe/Moscow'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
