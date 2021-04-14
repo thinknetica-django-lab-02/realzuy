@@ -1,5 +1,5 @@
+from __future__ import absolute_import, unicode_literals
 import os
-
 from celery import Celery
 
 # set the default Django settings module for the 'celery' program.
@@ -7,7 +7,8 @@ from celery.schedules import crontab
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mymp.settings')
 
-app = Celery('tasks')
+
+app = Celery('mymp')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.

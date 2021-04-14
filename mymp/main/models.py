@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 from main.messages import *
-from .tasks import send_welcome_message_schedule
+from main.tasks import send_welcome_message_schedule
 
 class Strategy(models.Model):
     title = models.CharField(max_length=64, verbose_name="Название")
@@ -102,7 +102,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         grp, created = Group.objects.get_or_create(name='common users')
         instance.groups.add(grp)
 
-        print('create_user_profile')
         send_welcome_message_schedule.delay(instance.id)
 
 

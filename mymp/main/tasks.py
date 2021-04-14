@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 from celery import shared_task
-
+from celery.utils.log import get_task_logger
 from main.messages import SendNewStrategiesMessage, SendWelcomeMessage
 import main.models as model
 
+logger = get_task_logger(__name__)
 
 @shared_task
 def send_new_strategies_weekly_schedule():
@@ -17,8 +18,7 @@ def send_new_strategies_weekly_schedule():
 
 @shared_task
 def send_welcome_message_schedule(user_id):
-    print('x1')
+    logger.info('1')
     user = model.User.objects.get(pk=user_id)
-    print('x2')
     SendWelcomeMessage(user)
-    print('x3')
+
