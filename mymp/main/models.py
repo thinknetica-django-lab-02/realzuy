@@ -102,6 +102,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         grp, created = Group.objects.get_or_create(name='common users')
         instance.groups.add(grp)
 
+        print('create_user_profile')
         send_welcome_message_schedule.delay(instance.id)
 
 

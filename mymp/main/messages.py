@@ -33,6 +33,7 @@ def SendNewStrategyMessage(strategy, profile):
 
 
 def SendNewStrategiesMessage(strategies, profile):
+    print('1')
     msg_title = 'Появились новые стратегии'
     ctx = {
         'title': msg_title,
@@ -40,7 +41,9 @@ def SendNewStrategiesMessage(strategies, profile):
         'strategies': strategies,
     }
     message = get_template('emails/strategies_new.html').render(ctx)
-
+    print('2')
     msg = EmailMultiAlternatives(msg_title, 'New strategies message', settings.EMAIL_HOST_USER, [profile.user.email])
     msg.attach_alternative(message, "text/html")
+    print('3')
     msg.send()
+    print('4')

@@ -9,3 +9,6 @@ db.sqlite3
 /mymp/media/
 *.exe
 credentials.py
+*.bak
+*.dat
+*.dir
