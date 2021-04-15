@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from celery import shared_task
 from celery.utils.log import get_task_logger
-from main.messages import SendNewStrategiesMessage, SendWelcomeMessage
+from main.messages import SendNewStrategiesMessage, SendWelcomeMessage, SendSMS
 import main.models as model
+import random
 
 logger = get_task_logger(__name__)
 
@@ -21,4 +22,13 @@ def send_welcome_message_schedule(user_id):
     logger.info('1')
     user = model.User.objects.get(pk=user_id)
     SendWelcomeMessage(user)
+
+
+@shared_task
+def send_sms_code(phone_number, user_id):
+    code = random.randint(1000, 9999)
+    status = SendSMS(phone_number, code)
+    sms = model.SMSlog.objects.create(code=code, status=status)
+    user = model.User.objects.get(pk=user_id)
+    user.smslog_set.add(sms)
 

@@ -9,6 +9,8 @@ from django.views.generic.edit import CreateView, UpdateView
 from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
 from django.conf import settings
+from .tasks import send_sms_code
+
 
 def error_404(request, exception):
     return render(request, 'errors/404.html')
@@ -56,6 +58,7 @@ class StrategyDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['user_is_author'] = self.request.user.groups.filter(name='Authors').exists()
         return context
+
 
 class StrategyCreate(CreateView):
     model = Strategy
@@ -117,7 +120,7 @@ def update_profile(request):
                 up = form.save(commit=False)
                 up.user = u
                 up.save()
-            formset.save() #иначе не сохраняется ManyToMany
+            formset.save()  # иначе не сохраняется ManyToMany
             messages.success(request, 'Ваш профиль успешно обновлен!')
         else:
             messages.error(request, 'При обновлении профиля возникли ошибки')
@@ -125,3 +128,19 @@ def update_profile(request):
         user_form = UserForm(instance=request.user)
         formset = ProfileFormset(instance=request.user)
     return render(request, 'profile.html', locals())
+
+
+def phone_number_confirmation(request):
+    user = request.user
+    user_id = user.id
+    phone_number = str(user.profile.phone_number)
+    confirmation_flag = user.profile.is_phone_confirmed
+    if not confirmation_flag and phone_number:
+        send_sms_code.delay(phone_number, user_id)
+        confirm_message = "Код подтверждения отправлен на Ваш номер телефона"
+        request.session['confirm_message'] = confirm_message
+        return redirect('profile')
+    else:
+        confirm_message = 'Вы уже подтвердили номер телефона ранее'
+        request.session['confirm_message'] = confirm_message
+        return redirect('profile')

@@ -9,6 +9,7 @@ urlpatterns = [
     path('strategies/', StrategyList.as_view(), name='strategies'),
     path('strategies/<int:pk>/', StrategyDetail.as_view(), name='strategy-detail'),
     path('accounts/profile/', views.update_profile, name='profile-update'),
+    path('accounts/profile/phone_confirm', views.phone_number_confirmation, name='phone-confirm'),
     path('strategies/add/', StrategyCreate.as_view(), name='strategy-form'),
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('allauth.urls')),

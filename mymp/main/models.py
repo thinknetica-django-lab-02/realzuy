@@ -3,8 +3,8 @@ from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
-from main.messages import *
-from main.tasks import send_welcome_message_schedule
+from .tasks import send_welcome_message_schedule
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Strategy(models.Model):
     title = models.CharField(max_length=64, verbose_name="Название")
@@ -85,6 +85,8 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
     subscriptions = models.ManyToManyField('Subscription', verbose_name='Подписки', blank=True)
+    phone_number = PhoneNumberField(verbose_name='Номер телефона', blank=True)
+    is_phone_confirmed = models.BooleanField(default=False, verbose_name='Телефон подтвержден')
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -115,3 +117,12 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SMSLog(models.Model):
+    code = models.PositiveIntegerField()
+    receiver = models.CharField(max_length=32)
+    status = models.CharField(max_length=32)
+    date_create = models.DateTimeField(auto_now_add=True)
+    date_sent = models.DateTimeField(auto_now_add=True)
+
