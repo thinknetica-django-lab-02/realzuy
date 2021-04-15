@@ -28,6 +28,5 @@ app.conf.beat_schedule = {
     'send_new_strategies_weekly': {
         'task': 'main.tasks.send_new_strategies_weekly_schedule',
         'schedule': crontab(day_of_week='mon', hour='12', minute=0),
-        #'schedule': crontab(minute='*'),
     }
 }
