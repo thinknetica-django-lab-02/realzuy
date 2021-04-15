@@ -139,8 +139,8 @@ def phone_number_confirmation(request):
         send_sms_code.delay(phone_number, user_id)
         confirm_message = "Код подтверждения отправлен на Ваш номер телефона"
         request.session['confirm_message'] = confirm_message
-        return redirect('profile')
+        return redirect('profile-update')
     else:
         confirm_message = 'Вы уже подтвердили номер телефона ранее'
         request.session['confirm_message'] = confirm_message
-        return redirect('profile')
+        return redirect('profile-update')
