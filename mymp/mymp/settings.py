@@ -165,6 +165,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
 CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
@@ -193,4 +194,5 @@ CACHES = {
         }
     }
 }
+
 
