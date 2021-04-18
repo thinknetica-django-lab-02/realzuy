@@ -14,9 +14,20 @@
     {% for ft in formset %}
         {{ ft }}
     {% endfor %}
+    {% if not user.profile.is_phone_confirmed %}
+      <tr>
+        <th>&nbsp;</th>
+        <td>
+        <a href = "/accounts/profile/phone_confirm"> Подтвердите номер телефона</a>
+      </td></tr>
+    {% endif %}
+
   </table>
   <button class="btn btn-primary" type="submit">Сохранить</button>
 </form>
+
+<p class="alert alert-success" > {{ request.session.confirm_message }} </p>
+
 {% if messages %}
   {% for message in messages %}
     {% if message.tags == "success" %}
