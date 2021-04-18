@@ -33,3 +33,7 @@ class ProfileAdmin(admin.ModelAdmin):
 @admin.register(Subscription)
 class ProfileAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(SMSLog)
+class ProfileAdmin(admin.ModelAdmin):
+    pass

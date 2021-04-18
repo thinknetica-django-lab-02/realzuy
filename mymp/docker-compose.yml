@@ -1,0 +1,29 @@
+version: '3'
+services:
+  redis:
+    image: redis
+    restart: always
+    container_name: 'mymp_redis'
+    command: redis-server
+    ports:
+      - '6379:6379'
+  web:
+    build: .
+    restart: always
+    container_name: 'mymp'
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - '8000:8000'
+  celery:
+    build: .
+    container_name: 'mymp_celery'
+    command: celery -A mymp worker -B -E
+    volumes:
+      - .:/usr/src/app
+    links:
+      - redis
+    depends_on:
+      - web
+      - redis

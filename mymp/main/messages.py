@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
+from twilio.rest import Client
 
 
 def SendWelcomeMessage(user):
@@ -43,3 +44,9 @@ def SendNewStrategiesMessage(strategies, profile):
     msg = EmailMultiAlternatives(msg_title, 'New strategies message', settings.EMAIL_HOST_USER, [profile.user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
+
+
+def SendSMS(phone_number, sms_text):
+    client = Client(TWILIO_SID, TWILIO_TOKEN)
+    message = client.messages.create(body=sms_text, from_=TWILIO_FROM_NUMBER, to=phone_number)
+    return message.status
