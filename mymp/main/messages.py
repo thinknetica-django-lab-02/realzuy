@@ -1,7 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
-from .models import *
+
 
 def SendWelcomeMessage(user):
     msg_title = 'Welcome to MyMP!'
@@ -40,7 +40,6 @@ def SendNewStrategiesMessage(strategies, profile):
         'strategies': strategies,
     }
     message = get_template('emails/strategies_new.html').render(ctx)
-
     msg = EmailMultiAlternatives(msg_title, 'New strategies message', settings.EMAIL_HOST_USER, [profile.user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
