@@ -10,7 +10,7 @@ from .forms import UserForm, ProfileFormset
 from .models import Strategy, Profile
 from django.conf import settings
 from .tasks import send_sms_code
-
+from django.core.cache import cache
 
 def error_404(request, exception):
     return render(request, 'errors/404.html')
@@ -57,6 +57,13 @@ class StrategyDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_is_author'] = self.request.user.groups.filter(name='Authors').exists()
+
+        counter_name = f'view_counter_{context["strategy"].id}'
+        view_counter = cache.get(counter_name, 0)
+        view_counter += 1
+        cache.set(counter_name, view_counter, timeout=60)
+        context['view_counter'] = view_counter
+
         return context
 
 
