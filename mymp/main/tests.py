@@ -8,7 +8,7 @@ today = datetime.datetime.now()
 
 
 class MainViewsTest(TestCase):
-
+    """Тесты представлений"""
     @classmethod
     def setUpTestData(cls):
         user1 = User.objects.create_user(
@@ -52,10 +52,12 @@ class MainViewsTest(TestCase):
         pass
 
     def test_strategies_list_url_accessible(self):
+        """Проверка доступности списка стратегий"""
         response = self.client.get(reverse('strategies'))
         self.assertEqual(response.status_code, 200)
 
     def test_strategy_view_url_accessible(self):
+        """Проверка доступности карточки стратегии"""
         strategy = Strategy.objects.create(
             title='Strategy xi',
             date_create=today,
@@ -68,16 +70,22 @@ class MainViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_profile_view_url_not_accessible(self):
+        """Проверка переадресации на страницу логина
+        при попытке обращения неавторизованного пользователя
+        к странице профиля"""
         response = self.client.get(reverse('profile-update'))
         self.assertRedirects(response, '/accounts/login/')
 
     def test_profile_view_url_accessible(self):
+        """Проверка доступности страницы профиля
+        для авторизованного пользователя"""
         self.client.login(username='user1@mail.com',
                           password='user1')
         response = self.client.get(reverse('profile-update'))
         self.assertEqual(response.status_code, 200)
 
     def test_strategies_pagination_is_five(self):
+        """Проверка пагинации списка стратегий"""
         resp = self.client.get(reverse('strategies'))
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('is_paginated' in resp.context)
@@ -85,10 +93,12 @@ class MainViewsTest(TestCase):
         self.assertTrue(len(resp.context['strategies']) == 5)
 
     def test_strategies_list_view_uses_correct_template(self):
+        """Проверка использования списком стратегий правильного шаблона"""
         resp = self.client.get(reverse('strategies'))
         self.assertTemplateUsed(resp, 'main/strategy_list.html')
 
     def test_strategy_view_uses_correct_template(self):
+        """Проверка использования карточкой стратегии правильного шаблона"""
         strategy = Strategy.objects.create(
             title='Strategy xi',
             date_create=today,

@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main.forms &#8212; документация mymp 1</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Исходный код main.forms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="kn">import</span> <span class="n">relativedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Profile</span>
+
+
+<div class="viewcode-block" id="UserForm"><a class="viewcode-back" href="../../main.html#main.forms.UserForm">[документация]</a><span class="k">class</span> <span class="nc">UserForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Custom password reset form.</span>
+<span class="sd">    Sends emails using Celery.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="UserForm.Meta"><a class="viewcode-back" href="../../main.html#main.forms.UserForm.Meta">[документация]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">,</span> <span class="s1">&#39;email&#39;</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="ProfileForm"><a class="viewcode-back" href="../../main.html#main.forms.ProfileForm">[документация]</a><span class="k">class</span> <span class="nc">ProfileForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+<div class="viewcode-block" id="ProfileForm.Meta"><a class="viewcode-back" href="../../main.html#main.forms.ProfileForm.Meta">[документация]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Profile</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;birth_date&#39;</span><span class="p">,</span> <span class="s1">&#39;subscriptions&#39;</span><span class="p">,</span> <span class="s1">&#39;avatar&#39;</span><span class="p">,</span> <span class="s1">&#39;phone_number&#39;</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="ProfileFormset"><a class="viewcode-back" href="../../main.html#main.forms.ProfileFormset">[документация]</a><span class="k">class</span> <span class="nc">ProfileFormset</span><span class="p">(</span>
+    <span class="n">forms</span><span class="o">.</span><span class="n">inlineformset_factory</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">Profile</span><span class="p">,</span>
+                                <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;birth_date&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;subscriptions&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;avatar&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;phone_number&#39;</span><span class="p">],</span>
+                                <span class="n">can_delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                <span class="n">widgets</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;birth_date&#39;</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">SelectDateWidget</span><span class="p">(</span>
+                                    <span class="n">years</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">2020</span><span class="p">)),</span> <span class="p">})):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__initial</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;initial&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProfileFormset</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProfileFormset.clean"><a class="viewcode-back" href="../../main.html#main.forms.ProfileFormset.clean">[документация]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ProfileFormset</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">clean</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">form</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">forms</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">birth_date</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;birth_date&#39;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">birth_date</span><span class="p">)</span><span class="o">.</span><span class="n">years</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="s1">&#39;Возвраст должен быть больше 18 лет&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">mymp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Код модуля</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, serg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

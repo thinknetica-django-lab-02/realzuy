@@ -27,6 +27,7 @@ def index(request):
 
 
 class StrategyList(ListView):
+    """Представление со списком стратегий"""
     model = Strategy
     context_object_name = 'strategies'
     queryset = Strategy.objects.order_by('-annual_return')
@@ -52,6 +53,7 @@ class StrategyList(ListView):
 
 
 class StrategyDetail(DetailView):
+    """Представление с карточкой стратегии"""
     model = Strategy
     context_object_name = 'strategy'
 
@@ -70,6 +72,7 @@ class StrategyDetail(DetailView):
 
 
 class StrategyCreate(CreateView):
+    """Форма создания стратегии"""
     model = Strategy
     fields = '__all__'
 
@@ -96,6 +99,7 @@ class StrategyCreate(CreateView):
 
 
 class StrategyUpdate(UserPassesTestMixin, UpdateView):
+    """Форма редактирования стратегии"""
     model = Strategy
     fields = '__all__'
 

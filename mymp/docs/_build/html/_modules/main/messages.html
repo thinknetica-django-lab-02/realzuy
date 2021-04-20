@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main.messages &#8212; документация mymp 1</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Исходный код main.messages</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">EmailMultiAlternatives</span>
+<span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="kn">import</span> <span class="n">get_template</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">twilio.rest</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mymp.settings</span> <span class="kn">import</span> <span class="n">TWILIO_SID</span><span class="p">,</span> <span class="n">TWILIO_TOKEN</span><span class="p">,</span> <span class="n">TWILIO_FROM_NUMBER</span>
+
+
+<div class="viewcode-block" id="SendWelcomeMessage"><a class="viewcode-back" href="../../main.html#main.messages.SendWelcomeMessage">[документация]</a><span class="k">def</span> <span class="nf">SendWelcomeMessage</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="n">msg_title</span> <span class="o">=</span> <span class="s1">&#39;Welcome to MyMP!&#39;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">msg_title</span><span class="p">,</span>
+        <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">get_username</span>
+    <span class="p">}</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;emails/welcome.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMultiAlternatives</span><span class="p">(</span><span class="n">msg_title</span><span class="p">,</span>
+                                 <span class="s1">&#39;Welcome message&#39;</span><span class="p">,</span>
+                                 <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">])</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">attach_alternative</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;text/html&quot;</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SendNewStrategyMessage"><a class="viewcode-back" href="../../main.html#main.messages.SendNewStrategyMessage">[документация]</a><span class="k">def</span> <span class="nf">SendNewStrategyMessage</span><span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="n">profile</span><span class="p">):</span>
+    <span class="n">msg_title</span> <span class="o">=</span> <span class="s1">&#39;Появилась новая стратегия&#39;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">msg_title</span><span class="p">,</span>
+        <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="n">profile</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_username</span><span class="p">,</span>
+        <span class="s1">&#39;strategy_title&#39;</span><span class="p">:</span> <span class="n">strategy</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+        <span class="s1">&#39;strategy_description&#39;</span><span class="p">:</span> <span class="n">strategy</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+        <span class="s1">&#39;strategy_url&#39;</span><span class="p">:</span> <span class="n">strategy</span><span class="o">.</span><span class="n">id</span>
+    <span class="p">}</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;emails/strategy_new.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMultiAlternatives</span><span class="p">(</span><span class="n">msg_title</span><span class="p">,</span>
+                                 <span class="s1">&#39;New strategy message&#39;</span><span class="p">,</span>
+                                 <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="n">profile</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">])</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">attach_alternative</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;text/html&quot;</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SendNewStrategiesMessage"><a class="viewcode-back" href="../../main.html#main.messages.SendNewStrategiesMessage">[документация]</a><span class="k">def</span> <span class="nf">SendNewStrategiesMessage</span><span class="p">(</span><span class="n">strategies</span><span class="p">,</span> <span class="n">profile</span><span class="p">):</span>
+    <span class="n">msg_title</span> <span class="o">=</span> <span class="s1">&#39;Появились новые стратегии&#39;</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">msg_title</span><span class="p">,</span>
+        <span class="s1">&#39;user_name&#39;</span><span class="p">:</span> <span class="n">profile</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_username</span><span class="p">,</span>
+        <span class="s1">&#39;strategies&#39;</span><span class="p">:</span> <span class="n">strategies</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;emails/strategies_new.html&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMultiAlternatives</span><span class="p">(</span><span class="n">msg_title</span><span class="p">,</span>
+                                 <span class="s1">&#39;New strategies message&#39;</span><span class="p">,</span>
+                                 <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_HOST_USER</span><span class="p">,</span>
+                                 <span class="p">[</span><span class="n">profile</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">])</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">attach_alternative</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;text/html&quot;</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SendSMS"><a class="viewcode-back" href="../../main.html#main.messages.SendSMS">[документация]</a><span class="k">def</span> <span class="nf">SendSMS</span><span class="p">(</span><span class="n">phone_number</span><span class="p">,</span> <span class="n">sms_text</span><span class="p">):</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">TWILIO_SID</span><span class="p">,</span> <span class="n">TWILIO_TOKEN</span><span class="p">)</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">sms_text</span><span class="p">,</span>
+                                     <span class="n">from_</span><span class="o">=</span><span class="n">TWILIO_FROM_NUMBER</span><span class="p">,</span>
+                                     <span class="n">to</span><span class="o">=</span><span class="n">phone_number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">status</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">mymp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Код модуля</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, serg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
