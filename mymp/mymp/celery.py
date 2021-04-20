@@ -7,7 +7,6 @@ from celery.schedules import crontab
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mymp.settings')
 
-
 app = Celery('mymp')
 
 # Using a string here means the worker doesn't have to serialize
@@ -23,6 +22,7 @@ app.autodiscover_tasks()
 @app.task(bind=True)
 def debug_task(self):
     print(f'Request: {self.request!r}')
+
 
 app.conf.beat_schedule = {
     'send_new_strategies_weekly': {

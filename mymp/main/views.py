@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
@@ -11,6 +11,7 @@ from .models import Strategy, Profile
 from django.conf import settings
 from .tasks import send_sms_code
 from django.core.cache import cache
+
 
 def error_404(request, exception):
     return render(request, 'errors/404.html')
@@ -56,7 +57,8 @@ class StrategyDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user_is_author'] = self.request.user.groups.filter(name='Authors').exists()
+        context['user_is_author'] = \
+            self.request.user.groups.filter(name='Authors').exists()
 
         counter_name = f'view_counter_{context["strategy"].id}'
         view_counter = cache.get(counter_name, 0)
@@ -80,9 +82,12 @@ class StrategyCreate(CreateView):
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.request.user.groups.filter(name='Authors').exists():
+        if request.user.is_authenticated and \
+                self.request.user.groups.filter(name='Authors').exists():
             if request.method.lower() in self.http_method_names:
-                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+                handler = getattr(self,
+                                  request.method.lower(),
+                                  self.http_method_not_allowed)
             else:
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
@@ -103,9 +108,12 @@ class StrategyUpdate(UserPassesTestMixin, UpdateView):
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.request.user.groups.filter(name='Authors').exists():
+        if request.user.is_authenticated and \
+                self.request.user.groups.filter(name='Authors').exists():
             if request.method.lower() in self.http_method_names:
-                handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+                handler = getattr(self,
+                                  request.method.lower(),
+                                  self.http_method_not_allowed)
             else:
                 handler = self.http_method_not_allowed
             return handler(request, *args, **kwargs)
@@ -119,11 +127,16 @@ def update_profile(request):
     if not request.user.is_authenticated:
         return redirect(settings.LOGIN_URL)
 
-    User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
+    User.profile = property(
+        lambda u: Profile.objects.get_or_create(user=u)[0])
 
     if request.method == 'POST':
-        user_form = UserForm(request.POST, request.FILES, instance=request.user)
-        formset = ProfileFormset(request.POST, request.FILES, instance=request.user)
+        user_form = UserForm(request.POST,
+                             request.FILES,
+                             instance=request.user)
+        formset = ProfileFormset(request.POST,
+                                 request.FILES,
+                                 instance=request.user)
         if user_form.is_valid() and formset.is_valid():
             u = user_form.save()
             for form in formset.forms:
@@ -131,9 +144,11 @@ def update_profile(request):
                 up.user = u
                 up.save()
             formset.save()  # иначе не сохраняется ManyToMany
-            messages.success(request, 'Ваш профиль успешно обновлен!')
+            messages.success(request,
+                             'Ваш профиль успешно обновлен!')
         else:
-            messages.error(request, 'При обновлении профиля возникли ошибки')
+            messages.error(request,
+                           'При обновлении профиля возникли ошибки')
     else:
         user_form = UserForm(instance=request.user)
         formset = ProfileFormset(instance=request.user)

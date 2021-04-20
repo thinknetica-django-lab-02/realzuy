@@ -1,6 +1,5 @@
 import datetime
-from main.models import *
-from django.db import models
+from main.models import StrategyTag, StrategyCategory, StrategyAuthor, Strategy
 
 today = datetime.datetime.now()
 
@@ -13,11 +12,17 @@ c2 = StrategyCategory.objects.create(name='Среднесрочная')
 c3 = StrategyCategory.objects.create(name='Позиционная')
 StrategyCategory.objects.all()
 
-a1 = StrategyAuthor(first_name='Иван', last_name='Иванов', email='author1@mail.ru')
+a1 = StrategyAuthor(first_name='Иван',
+                    last_name='Иванов',
+                    email='author1@mail.ru')
 a1.save()
-a2 = StrategyAuthor(first_name='Петр', last_name='Петров', email='petrov@gmail.com')
+a2 = StrategyAuthor(first_name='Петр',
+                    last_name='Петров',
+                    email='petrov@gmail.com')
 a2.save()
-a3 = StrategyAuthor(first_name='Сидр', last_name='Сидоров', email='sidorov@gmail.com')
+a3 = StrategyAuthor(first_name='Сидр',
+                    last_name='Сидоров',
+                    email='sidorov@gmail.com')
 a3.save()
 StrategyAuthor.objects.all()
 
@@ -42,7 +47,7 @@ s3 = Strategy(title='Strategy 3',
               date_modify=today,
               category=c2,
               author=a2,
-              annual_return = -5)
+              annual_return=-5)
 s3.save()
 s3.tags.add(t2)
 s4 = Strategy(title='Strategy 11',
@@ -51,12 +56,10 @@ s4 = Strategy(title='Strategy 11',
               id_category=StrategyCategory.objects.get(id=2),
               id_author=a3,
               min_nav=100,
-              annual_return = 7)
+              annual_return=7)
 s4.save()
 s4.tags.add(StrategyTag.objects.get(id=1))
 
 Strategy.objects.all()
 Strategy.objects.filter(id_category=1)
 Strategy.objects.filter(id_category=2)
-
-

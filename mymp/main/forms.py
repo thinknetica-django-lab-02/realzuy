@@ -19,7 +19,15 @@ class ProfileForm(forms.ModelForm):
         fields = ['birth_date', 'subscriptions', 'avatar', 'phone_number']
 
 
-class ProfileFormset(forms.inlineformset_factory(User, Profile, fields=['birth_date', 'subscriptions', 'avatar', 'phone_number'], can_delete=False, widgets={'birth_date': forms.SelectDateWidget(years=range(1920,2020)),})):
+class ProfileFormset(
+    forms.inlineformset_factory(User, Profile,
+                                fields=['birth_date',
+                                        'subscriptions',
+                                        'avatar',
+                                        'phone_number'],
+                                can_delete=False,
+                                widgets={'birth_date': forms.SelectDateWidget(
+                                    years=range(1920, 2020)), })):
 
     def __init__(self, *args, **kwargs):
         self.__initial = kwargs.pop('initial', [])
@@ -36,5 +44,3 @@ class ProfileFormset(forms.inlineformset_factory(User, Profile, fields=['birth_d
 
             if relativedelta(datetime.now(), birth_date).years < 18:
                 raise ValidationError('Возвраст должен быть больше 18 лет')
-
-

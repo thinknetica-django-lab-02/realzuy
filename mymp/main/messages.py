@@ -2,6 +2,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.conf import settings
 from twilio.rest import Client
+from mymp.settings import TWILIO_SID, TWILIO_TOKEN, TWILIO_FROM_NUMBER
 
 
 def SendWelcomeMessage(user):
@@ -12,7 +13,10 @@ def SendWelcomeMessage(user):
     }
     message = get_template('emails/welcome.html').render(ctx)
 
-    msg = EmailMultiAlternatives(msg_title, 'Welcome message', settings.EMAIL_HOST_USER, [user.email])
+    msg = EmailMultiAlternatives(msg_title,
+                                 'Welcome message',
+                                 settings.EMAIL_HOST_USER,
+                                 [user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
 
@@ -28,7 +32,10 @@ def SendNewStrategyMessage(strategy, profile):
     }
     message = get_template('emails/strategy_new.html').render(ctx)
 
-    msg = EmailMultiAlternatives(msg_title, 'New strategy message', settings.EMAIL_HOST_USER, [profile.user.email])
+    msg = EmailMultiAlternatives(msg_title,
+                                 'New strategy message',
+                                 settings.EMAIL_HOST_USER,
+                                 [profile.user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
 
@@ -41,12 +48,17 @@ def SendNewStrategiesMessage(strategies, profile):
         'strategies': strategies,
     }
     message = get_template('emails/strategies_new.html').render(ctx)
-    msg = EmailMultiAlternatives(msg_title, 'New strategies message', settings.EMAIL_HOST_USER, [profile.user.email])
+    msg = EmailMultiAlternatives(msg_title,
+                                 'New strategies message',
+                                 settings.EMAIL_HOST_USER,
+                                 [profile.user.email])
     msg.attach_alternative(message, "text/html")
     msg.send()
 
 
 def SendSMS(phone_number, sms_text):
     client = Client(TWILIO_SID, TWILIO_TOKEN)
-    message = client.messages.create(body=sms_text, from_=TWILIO_FROM_NUMBER, to=phone_number)
+    message = client.messages.create(body=sms_text,
+                                     from_=TWILIO_FROM_NUMBER,
+                                     to=phone_number)
     return message.status
