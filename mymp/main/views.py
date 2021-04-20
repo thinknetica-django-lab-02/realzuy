@@ -116,6 +116,9 @@ class StrategyUpdate(UserPassesTestMixin, UpdateView):
 @login_required
 @transaction.atomic
 def update_profile(request):
+    if not request.user.is_authenticated:
+        return redirect(settings.LOGIN_URL)
+
     User.profile = property(lambda u: Profile.objects.get_or_create(user=u)[0])
 
     if request.method == 'POST':

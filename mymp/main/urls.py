@@ -11,7 +11,7 @@ CACHE_MIDDLEWARE_SECONDS = getattr(settings, 'CACHE_MIDDLEWARE_SECONDS', DEFAULT
 urlpatterns = [
     path('', views.index, name='index'),
     path('strategies/', cache_page(CACHE_MIDDLEWARE_SECONDS)(StrategyList.as_view()), name='strategies'),
-    path('strategies/<int:pk>/', StrategyDetail.as_view(), name='strategy-detail'),
+    path('strategies/<int:pk>/', StrategyDetail.as_view(template_name='main/strategy_detail.html'), name='strategy-detail'),
     path('accounts/profile/', views.update_profile, name='profile-update'),
     path('accounts/profile/phone_confirm', views.phone_number_confirmation, name='phone-confirm'),
     path('strategies/add/', StrategyCreate.as_view(), name='strategy-form'),
