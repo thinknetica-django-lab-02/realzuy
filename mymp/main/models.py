@@ -6,18 +6,30 @@ from sorl.thumbnail import ImageField
 from .tasks import send_welcome_message_schedule
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Strategy(models.Model):
-    title = models.CharField(max_length=64, verbose_name="Название")
-    description = models.CharField(max_length=2056, verbose_name="Описание")
+    title = models.CharField(max_length=64,
+                             verbose_name="Название")
+    description = models.CharField(max_length=2056,
+                                   verbose_name="Описание")
     date_create = models.DateField(verbose_name="Дата создания")
     date_modify = models.DateField(verbose_name="Дата последнего изменения")
-    is_active = models.BooleanField(default=False, verbose_name='Состояние')
-    id_category = models.ForeignKey('StrategyCategory', on_delete=models.CASCADE, verbose_name='Категория')
-    id_author = models.ForeignKey('StrategyAuthor', on_delete=models.CASCADE, verbose_name="Автор")
-    annual_return = models.FloatField(default=0, verbose_name="Годовая доходность")
+    is_active = models.BooleanField(default=False,
+                                    verbose_name='Состояние')
+    id_category = models.ForeignKey('StrategyCategory',
+                                    on_delete=models.CASCADE,
+                                    verbose_name='Категория')
+    id_author = models.ForeignKey('StrategyAuthor',
+                                  on_delete=models.CASCADE,
+                                  verbose_name="Автор")
+    annual_return = models.FloatField(default=0,
+                                      verbose_name="Годовая доходность")
     tags = models.ManyToManyField('StrategyTag')
-    min_nav = models.IntegerField(null=False, verbose_name='Минимальный СЧА')
-    pic_yield = ImageField(upload_to="pics/", verbose_name='График доходности', blank=True)
+    min_nav = models.IntegerField(null=False,
+                                  verbose_name='Минимальный СЧА')
+    pic_yield = ImageField(upload_to="pics/",
+                           verbose_name='График доходности',
+                           blank=True)
 
     class Meta:
         ordering = ['title']
@@ -79,14 +91,23 @@ class StrategyAuthor(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User,
+                                on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
-    avatar = ImageField(upload_to="users/", verbose_name='Аватар', blank=True)
-    subscriptions = models.ManyToManyField('Subscription', verbose_name='Подписки', blank=True)
-    phone_number = PhoneNumberField(verbose_name='Номер телефона', blank=True)
-    is_phone_confirmed = models.BooleanField(default=False, verbose_name='Телефон подтвержден')
+    birth_date = models.DateField(null=True,
+                                  blank=True,
+                                  verbose_name='Дата рождения')
+    avatar = ImageField(upload_to="users/",
+                        verbose_name='Аватар',
+                        blank=True)
+    subscriptions = models.ManyToManyField('Subscription',
+                                           verbose_name='Подписки',
+                                           blank=True)
+    phone_number = PhoneNumberField(verbose_name='Номер телефона',
+                                    blank=True)
+    is_phone_confirmed = models.BooleanField(
+        default=False, verbose_name='Телефон подтвержден')
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
@@ -108,7 +129,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class Subscription(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name='Название')
+    name = models.CharField(max_length=100,
+                            unique=True,
+                            verbose_name='Название')
 
     class Meta:
         ordering = ['name']
@@ -125,4 +148,3 @@ class SMSLog(models.Model):
     status = models.CharField(max_length=32)
     date_create = models.DateTimeField(auto_now_add=True)
     date_sent = models.DateTimeField(auto_now_add=True)
-

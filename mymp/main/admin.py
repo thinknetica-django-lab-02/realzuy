@@ -3,7 +3,10 @@ from django.db import models
 from django.contrib.flatpages.admin import FlatPageAdmin
 from django.contrib.flatpages.models import FlatPage
 from ckeditor.widgets import CKEditorWidget
-from main.models import *
+
+from main.models import Strategy, \
+    StrategyCategory, StrategyTag, Profile, \
+    Subscription, SMSLog
 
 
 class FlatPageAdmin(FlatPageAdmin):
@@ -11,29 +14,36 @@ class FlatPageAdmin(FlatPageAdmin):
         models.TextField: {'widget': CKEditorWidget}
     }
 
+
 admin.site.unregister(FlatPage)
 admin.site.register(FlatPage, FlatPageAdmin)
+
 
 @admin.register(Strategy)
 class StrategyAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(StrategyCategory)
 class StrategyCategoryAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(StrategyTag)
 class StrategyTagAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Subscription)
-class ProfileAdmin(admin.ModelAdmin):
+class SubscriptionAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(SMSLog)
-class ProfileAdmin(admin.ModelAdmin):
+class SMSLogAdmin(admin.ModelAdmin):
     pass

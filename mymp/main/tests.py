@@ -1,9 +1,8 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from django.test import TestCase
 from .models import Strategy, StrategyTag, StrategyCategory, StrategyAuthor
 from django.urls import reverse
 import datetime
-import pytest
 
 today = datetime.datetime.now()
 
@@ -23,25 +22,30 @@ class MainViewsTest(TestCase):
 
         number_of_tags = 2
         for num in range(number_of_tags):
-            StrategyTag.objects.create(name='tag %s' % num, )
+            StrategyTag.objects.create(
+                name='tag %s' % num, )
 
         number_of_categories = 5
         for num in range(number_of_categories):
-            StrategyCategory.objects.create(name='category %s' % num, )
+            StrategyCategory.objects.create(
+                name='category %s' % num, )
 
         number_of_authors = 5
         for num in range(number_of_authors):
-            StrategyAuthor.objects.create(first_name='fname %s' % num, last_name='lname %s' % num, )
+            StrategyAuthor.objects.create(
+                first_name='fname %s' % num,
+                last_name='lname %s' % num, )
 
         number_of_strategies = 33
         for num in range(number_of_strategies):
-            Strategy.objects.create(title='Strategy %s' % num,
-                                    date_create=today,
-                                    date_modify=today,
-                                    id_category=StrategyCategory.objects.get(id=1),
-                                    id_author=StrategyAuthor.objects.get(id=1),
-                                    min_nav=100,
-                                    annual_return=10)
+            Strategy.objects.create(
+                title='Strategy %s' % num,
+                date_create=today,
+                date_modify=today,
+                id_category=StrategyCategory.objects.get(id=1),
+                id_author=StrategyAuthor.objects.get(id=1),
+                min_nav=100,
+                annual_return=10)
 
     def setUp(self):
         print("setUp: Run once for every test method to setup clean data.")
@@ -52,13 +56,14 @@ class MainViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_strategy_view_url_accessible(self):
-        strategy = Strategy.objects.create(title='Strategy xi',
-                                           date_create=today,
-                                           date_modify=today,
-                                           id_category=StrategyCategory.objects.get(id=1),
-                                           id_author=StrategyAuthor.objects.get(id=1),
-                                           min_nav=100,
-                                           annual_return=10)
+        strategy = Strategy.objects.create(
+            title='Strategy xi',
+            date_create=today,
+            date_modify=today,
+            id_category=StrategyCategory.objects.get(id=1),
+            id_author=StrategyAuthor.objects.get(id=1),
+            min_nav=100,
+            annual_return=10)
         response = self.client.get('/strategies/%d/' % (strategy.id,))
         self.assertEqual(response.status_code, 200)
 
@@ -67,7 +72,8 @@ class MainViewsTest(TestCase):
         self.assertRedirects(response, '/accounts/login/')
 
     def test_profile_view_url_accessible(self):
-        login = self.client.login(username='user1@mail.com', password='user1')
+        self.client.login(username='user1@mail.com',
+                          password='user1')
         response = self.client.get(reverse('profile-update'))
         self.assertEqual(response.status_code, 200)
 
@@ -75,20 +81,21 @@ class MainViewsTest(TestCase):
         resp = self.client.get(reverse('strategies'))
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('is_paginated' in resp.context)
-        self.assertTrue(resp.context['is_paginated'] == True)
-        self.assertTrue( len(resp.context['strategies']) == 5)
+        self.assertTrue(resp.context['is_paginated'] is True)
+        self.assertTrue(len(resp.context['strategies']) == 5)
 
     def test_strategies_list_view_uses_correct_template(self):
         resp = self.client.get(reverse('strategies'))
         self.assertTemplateUsed(resp, 'main/strategy_list.html')
 
     def test_strategy_view_uses_correct_template(self):
-        strategy = Strategy.objects.create(title='Strategy xi',
-                                date_create=today,
-                                date_modify=today,
-                                id_category=StrategyCategory.objects.get(id=1),
-                                id_author=StrategyAuthor.objects.get(id=1),
-                                min_nav=100,
-                                annual_return=10)
+        strategy = Strategy.objects.create(
+            title='Strategy xi',
+            date_create=today,
+            date_modify=today,
+            id_category=StrategyCategory.objects.get(id=1),
+            id_author=StrategyAuthor.objects.get(id=1),
+            min_nav=100,
+            annual_return=10)
         response = self.client.get('/strategies/%d/' % (strategy.id,))
         self.assertTemplateUsed(response, 'main/strategy_detail.html')
