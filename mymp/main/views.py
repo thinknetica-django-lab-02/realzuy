@@ -11,13 +11,15 @@ from .models import Strategy, Profile
 from django.conf import settings
 from .tasks import send_sms_code
 from django.core.cache import cache
+from django.http import HttpRequest, HttpResponse
+from django.db.models import QuerySet
+from typing import Dict, Any, Union
 
-
-def error_404(request, exception):
+def error_404(request: HttpRequest, exception) -> HttpResponse:
     return render(request, 'errors/404.html')
 
 
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         'index.html',
@@ -33,7 +35,7 @@ class StrategyList(ListView):
     queryset = Strategy.objects.order_by('-annual_return')
     paginate_by = 5
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super(StrategyList, self).get_context_data(**kwargs)
         tag = self.request.GET.get('tag')
         context['tag'] = tag
@@ -44,7 +46,7 @@ class StrategyList(ListView):
 
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Any]:
         queryset = super().get_queryset()
         tag = self.request.GET.get('tag')
         if tag:
@@ -57,7 +59,7 @@ class StrategyDetail(DetailView):
     model = Strategy
     context_object_name = 'strategy'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['user_is_author'] = \
             self.request.user.groups.filter(name='Authors').exists()
@@ -76,12 +78,12 @@ class StrategyCreate(CreateView):
     model = Strategy
     fields = '__all__'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['form_title'] = "Добавление стратегии"
         return context
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
@@ -103,12 +105,12 @@ class StrategyUpdate(UserPassesTestMixin, UpdateView):
     model = Strategy
     fields = '__all__'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context['form_title'] = "Редактирование стратегии"
         return context
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         return '/strategies/' + str(self.object.id) + '/'
 
     def dispatch(self, request, *args, **kwargs):
@@ -127,7 +129,7 @@ class StrategyUpdate(UserPassesTestMixin, UpdateView):
 
 @login_required
 @transaction.atomic
-def update_profile(request):
+def update_profile(request: HttpRequest) -> HttpResponse:
     if not request.user.is_authenticated:
         return redirect(settings.LOGIN_URL)
 
@@ -159,7 +161,7 @@ def update_profile(request):
     return render(request, 'profile.html', locals())
 
 
-def phone_number_confirmation(request):
+def phone_number_confirmation(request: HttpRequest) -> HttpResponse:
     user = request.user
     user_id = user.id
     phone_number = str(user.profile.phone_number)
