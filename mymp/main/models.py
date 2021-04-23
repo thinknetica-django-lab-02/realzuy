@@ -49,14 +49,14 @@ class Strategy(models.Model):
         verbose_name_plural = 'Стратегии'
 
     @property
-    def is_active_text(self):
+    def is_active_text(self) -> str:
         return "Активна" if self.is_active else "Не активна"
 
     @property
-    def is_revenue(self):
+    def is_revenue(self) -> bool:
         return True if self.annual_return > 0 else False
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -69,7 +69,7 @@ class StrategyTag(models.Model):
         verbose_name = 'Тег для стратегий'
         verbose_name_plural = 'Теги для стратегий'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -82,7 +82,7 @@ class StrategyCategory(models.Model):
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -93,7 +93,7 @@ class StrategyAuthor(models.Model):
     email = models.EmailField(max_length=254)
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         return f'{self.first_name} {self.last_name}'
 
     class Meta:
@@ -101,7 +101,7 @@ class StrategyAuthor(models.Model):
         verbose_name = 'Автор стратегии'
         verbose_name_plural = 'Авторы стратегий'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.full_name
 
 
@@ -155,7 +155,7 @@ class Subscription(models.Model):
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
