@@ -1,0 +1,280 @@
+
+<!DOCTYPE html>
+
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main.migrations package &#8212; документация mymp 1</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="main-migrations-package">
+<h1>main.migrations package<a class="headerlink" href="#main-migrations-package" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="module-main.migrations.0001_initial">
+<span id="main-migrations-0001-initial-module"></span><h2>main.migrations.0001_initial module<a class="headerlink" href="#module-main.migrations.0001_initial" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0001_initial.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0001_initial.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0001_initial.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0001_initial.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0001_initial.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#main.migrations.0001_initial.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0001_initial.Migration.initial">
+<code class="sig-name descname"><span class="pre">initial</span></code><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#main.migrations.0001_initial.Migration.initial" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0001_initial.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;CreateModel</span>&#160; <span class="pre">name='StrategyAuthor',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('first_name',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('last_name',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('email',</span> <span class="pre">&lt;django.db.models.fields.EmailField&gt;)],</span> <span class="pre">options={'verbose_name':</span> <span class="pre">'Автор</span> <span class="pre">стратегии',</span> <span class="pre">'verbose_name_plural':</span> <span class="pre">'Авторы</span> <span class="pre">стратегий',</span> <span class="pre">'ordering':</span> <span class="pre">['first_name',</span> <span class="pre">'last_name']}&gt;,</span> <span class="pre">&lt;CreateModel</span>&#160; <span class="pre">name='StrategyCategory',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('name',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;)],</span> <span class="pre">options={'verbose_name':</span> <span class="pre">'Категория',</span> <span class="pre">'verbose_name_plural':</span> <span class="pre">'Категории',</span> <span class="pre">'ordering':</span> <span class="pre">['name']}&gt;,</span> <span class="pre">&lt;CreateModel</span>&#160; <span class="pre">name='StrategyTag',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('name',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;)],</span> <span class="pre">options={'ordering':</span> <span class="pre">['name']}&gt;,</span> <span class="pre">&lt;CreateModel</span>&#160; <span class="pre">name='Strategy',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('title',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('description',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('date_create',</span> <span class="pre">&lt;django.db.models.fields.DateField&gt;),</span> <span class="pre">('date_modify',</span> <span class="pre">&lt;django.db.models.fields.DateField&gt;),</span> <span class="pre">('is_active',</span> <span class="pre">&lt;django.db.models.fields.BooleanField&gt;),</span> <span class="pre">('annual_return',</span> <span class="pre">&lt;django.db.models.fields.FloatField&gt;),</span> <span class="pre">('author',</span> <span class="pre">&lt;django.db.models.fields.related.ForeignKey&gt;),</span> <span class="pre">('category',</span> <span class="pre">&lt;django.db.models.fields.related.ForeignKey&gt;),</span> <span class="pre">('tags',</span> <span class="pre">&lt;django.db.models.fields.related.ManyToManyField&gt;)],</span> <span class="pre">options={'verbose_name':</span> <span class="pre">'Стратегия',</span> <span class="pre">'verbose_name_plural':</span> <span class="pre">'Стратегии',</span> <span class="pre">'ordering':</span> <span class="pre">['title']}&gt;]</span></em><a class="headerlink" href="#main.migrations.0001_initial.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0002_auto_20210327_2107">
+<span id="main-migrations-0002-auto-20210327-2107-module"></span><h2>main.migrations.0002_auto_20210327_2107 module<a class="headerlink" href="#module-main.migrations.0002_auto_20210327_2107" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0002_auto_20210327_2107.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0002_auto_20210327_2107.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0002_auto_20210327_2107.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0002_auto_20210327_2107.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0002_auto_20210327_2107.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0001_initial')]</span></em><a class="headerlink" href="#main.migrations.0002_auto_20210327_2107.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0002_auto_20210327_2107.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;RenameField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">old_name='author',</span> <span class="pre">new_name='id_author'&gt;,</span> <span class="pre">&lt;RenameField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">old_name='category',</span> <span class="pre">new_name='id_category'&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='annual_return',</span> <span class="pre">field=&lt;django.db.models.fields.FloatField&gt;&gt;]</span></em><a class="headerlink" href="#main.migrations.0002_auto_20210327_2107.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0003_strategy_min_nav">
+<span id="main-migrations-0003-strategy-min-nav-module"></span><h2>main.migrations.0003_strategy_min_nav module<a class="headerlink" href="#module-main.migrations.0003_strategy_min_nav" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0003_strategy_min_nav.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0003_strategy_min_nav.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0003_strategy_min_nav.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0003_strategy_min_nav.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0003_strategy_min_nav.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0002_auto_20210327_2107')]</span></em><a class="headerlink" href="#main.migrations.0003_strategy_min_nav.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0003_strategy_min_nav.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='min_nav',</span> <span class="pre">field=&lt;django.db.models.fields.IntegerField&gt;,</span> <span class="pre">preserve_default=False&gt;]</span></em><a class="headerlink" href="#main.migrations.0003_strategy_min_nav.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0004_auto_20210401_2103">
+<span id="main-migrations-0004-auto-20210401-2103-module"></span><h2>main.migrations.0004_auto_20210401_2103 module<a class="headerlink" href="#module-main.migrations.0004_auto_20210401_2103" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0004_auto_20210401_2103.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0004_auto_20210401_2103.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0004_auto_20210401_2103.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0004_auto_20210401_2103.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0004_auto_20210401_2103.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('auth',</span> <span class="pre">'__first__'),</span> <span class="pre">('main',</span> <span class="pre">'0003_strategy_min_nav')]</span></em><a class="headerlink" href="#main.migrations.0004_auto_20210401_2103.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0004_auto_20210401_2103.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='annual_return',</span> <span class="pre">field=&lt;django.db.models.fields.FloatField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='date_create',</span> <span class="pre">field=&lt;django.db.models.fields.DateField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='description',</span> <span class="pre">field=&lt;django.db.models.fields.CharField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='id_author',</span> <span class="pre">field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='id_category',</span> <span class="pre">field=&lt;django.db.models.fields.related.ForeignKey&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='is_active',</span> <span class="pre">field=&lt;django.db.models.fields.BooleanField&gt;&gt;,</span> <span class="pre">&lt;CreateModel</span>&#160; <span class="pre">name='Profile',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('birth_date',</span> <span class="pre">&lt;django.db.models.fields.DateField&gt;),</span> <span class="pre">('user',</span> <span class="pre">&lt;django.db.models.fields.related.OneToOneField&gt;)]&gt;]</span></em><a class="headerlink" href="#main.migrations.0004_auto_20210401_2103.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0005_auto_20210408_2329">
+<span id="main-migrations-0005-auto-20210408-2329-module"></span><h2>main.migrations.0005_auto_20210408_2329 module<a class="headerlink" href="#module-main.migrations.0005_auto_20210408_2329" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0005_auto_20210408_2329.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0005_auto_20210408_2329.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0005_auto_20210408_2329.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0005_auto_20210408_2329.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0005_auto_20210408_2329.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0004_auto_20210401_2103')]</span></em><a class="headerlink" href="#main.migrations.0005_auto_20210408_2329.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0005_auto_20210408_2329.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='avatar',</span> <span class="pre">field=&lt;sorl.thumbnail.fields.ImageField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='created_at',</span> <span class="pre">field=&lt;django.db.models.fields.DateTimeField&gt;,</span> <span class="pre">preserve_default=False&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='updated_at',</span> <span class="pre">field=&lt;django.db.models.fields.DateTimeField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='pic_yield',</span> <span class="pre">field=&lt;sorl.thumbnail.fields.ImageField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='birth_date',</span> <span class="pre">field=&lt;django.db.models.fields.DateField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='date_modify',</span> <span class="pre">field=&lt;django.db.models.fields.DateField&gt;&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='strategy',</span> <span class="pre">name='title',</span> <span class="pre">field=&lt;django.db.models.fields.CharField&gt;&gt;]</span></em><a class="headerlink" href="#main.migrations.0005_auto_20210408_2329.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0006_auto_20210409_1751">
+<span id="main-migrations-0006-auto-20210409-1751-module"></span><h2>main.migrations.0006_auto_20210409_1751 module<a class="headerlink" href="#module-main.migrations.0006_auto_20210409_1751" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0006_auto_20210409_1751.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0006_auto_20210409_1751.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0006_auto_20210409_1751.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0006_auto_20210409_1751.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0006_auto_20210409_1751.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0005_auto_20210408_2329')]</span></em><a class="headerlink" href="#main.migrations.0006_auto_20210409_1751.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0006_auto_20210409_1751.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;CreateModel</span>&#160; <span class="pre">name='Subscription',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('name',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;)],</span> <span class="pre">options={'ordering':</span> <span class="pre">['name']}&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='subscriptions',</span> <span class="pre">field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;]</span></em><a class="headerlink" href="#main.migrations.0006_auto_20210409_1751.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0007_auto_20210409_1959">
+<span id="main-migrations-0007-auto-20210409-1959-module"></span><h2>main.migrations.0007_auto_20210409_1959 module<a class="headerlink" href="#module-main.migrations.0007_auto_20210409_1959" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0007_auto_20210409_1959.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0007_auto_20210409_1959.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0007_auto_20210409_1959.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0007_auto_20210409_1959.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0007_auto_20210409_1959.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0006_auto_20210409_1751')]</span></em><a class="headerlink" href="#main.migrations.0007_auto_20210409_1959.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0007_auto_20210409_1959.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;AlterModelOptions</span>&#160; <span class="pre">name='strategytag',</span> <span class="pre">options={'ordering':</span> <span class="pre">['name'],</span> <span class="pre">'verbose_name':</span> <span class="pre">'Тег</span> <span class="pre">для</span> <span class="pre">стратегий',</span> <span class="pre">'verbose_name_plural':</span> <span class="pre">'Теги</span> <span class="pre">для</span> <span class="pre">стратегий'}&gt;,</span> <span class="pre">&lt;AlterModelOptions</span>&#160; <span class="pre">name='subscription',</span> <span class="pre">options={'ordering':</span> <span class="pre">['name'],</span> <span class="pre">'verbose_name':</span> <span class="pre">'Подписка',</span> <span class="pre">'verbose_name_plural':</span> <span class="pre">'Подписки'}&gt;,</span> <span class="pre">&lt;AlterField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='subscriptions',</span> <span class="pre">field=&lt;django.db.models.fields.related.ManyToManyField&gt;&gt;]</span></em><a class="headerlink" href="#main.migrations.0007_auto_20210409_1959.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations.0008_auto_20210414_2245">
+<span id="main-migrations-0008-auto-20210414-2245-module"></span><h2>main.migrations.0008_auto_20210414_2245 module<a class="headerlink" href="#module-main.migrations.0008_auto_20210414_2245" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="py class">
+<dt id="main.migrations.0008_auto_20210414_2245.Migration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">main.migrations.0008_auto_20210414_2245.</span></code><code class="sig-name descname"><span class="pre">Migration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/main/migrations/0008_auto_20210414_2245.html#Migration"><span class="viewcode-link"><span class="pre">[исходный</span> <span class="pre">код]</span></span></a><a class="headerlink" href="#main.migrations.0008_auto_20210414_2245.Migration" title="Ссылка на это определение">¶</a></dt>
+<dd><blockquote>
+<div><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.migrations.migration.Migration</span></code></p>
+</div></blockquote>
+<dl class="py attribute">
+<dt id="main.migrations.0008_auto_20210414_2245.Migration.dependencies">
+<code class="sig-name descname"><span class="pre">dependencies</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[('main',</span> <span class="pre">'0007_auto_20210409_1959')]</span></em><a class="headerlink" href="#main.migrations.0008_auto_20210414_2245.Migration.dependencies" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="main.migrations.0008_auto_20210414_2245.Migration.operations">
+<code class="sig-name descname"><span class="pre">operations</span></code><em class="property"> <span class="pre">=</span> <span class="pre">[&lt;CreateModel</span>&#160; <span class="pre">name='SMSLog',</span> <span class="pre">fields=[('id',</span> <span class="pre">&lt;django.db.models.fields.AutoField&gt;),</span> <span class="pre">('code',</span> <span class="pre">&lt;django.db.models.fields.PositiveIntegerField&gt;),</span> <span class="pre">('receiver',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('status',</span> <span class="pre">&lt;django.db.models.fields.CharField&gt;),</span> <span class="pre">('date_create',</span> <span class="pre">&lt;django.db.models.fields.DateTimeField&gt;),</span> <span class="pre">('date_sent',</span> <span class="pre">&lt;django.db.models.fields.DateTimeField&gt;)]&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='is_phone_confirmed',</span> <span class="pre">field=&lt;django.db.models.fields.BooleanField&gt;&gt;,</span> <span class="pre">&lt;AddField</span>&#160; <span class="pre">model_name='profile',</span> <span class="pre">name='phone_number',</span> <span class="pre">field=&lt;phonenumber_field.modelfields.PhoneNumberField&gt;&gt;]</span></em><a class="headerlink" href="#main.migrations.0008_auto_20210414_2245.Migration.operations" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-main.migrations">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-main.migrations" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">mymp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, serg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/main.migrations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

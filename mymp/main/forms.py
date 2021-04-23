@@ -8,6 +8,9 @@ from .models import Profile
 
 
 class UserForm(forms.ModelForm):
+    """Custom password reset form.
+    Sends emails using Celery.
+    """
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']

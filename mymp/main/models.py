@@ -8,28 +8,40 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Strategy(models.Model):
+    """Стратегия"""
     title = models.CharField(max_length=64,
                              verbose_name="Название")
+    """Название стратегии"""
     description = models.CharField(max_length=2056,
                                    verbose_name="Описание")
+    """Краткое описание стратегии"""
     date_create = models.DateField(verbose_name="Дата создания")
+    """Дата создания стратегии"""
     date_modify = models.DateField(verbose_name="Дата последнего изменения")
+    """Дата последнего изменения стратегии"""
     is_active = models.BooleanField(default=False,
                                     verbose_name='Состояние')
+    """Активна ли стратегия на текущий момент True=Активна"""
     id_category = models.ForeignKey('StrategyCategory',
                                     on_delete=models.CASCADE,
                                     verbose_name='Категория')
+    """Категория стратегии"""
     id_author = models.ForeignKey('StrategyAuthor',
                                   on_delete=models.CASCADE,
                                   verbose_name="Автор")
+    """Автор стратегии"""
     annual_return = models.FloatField(default=0,
                                       verbose_name="Годовая доходность")
+    """Годовая доходность"""
     tags = models.ManyToManyField('StrategyTag')
+    """Теги"""
     min_nav = models.IntegerField(null=False,
                                   verbose_name='Минимальный СЧА')
+    """Минимальный СЧА для работы стратегии"""
     pic_yield = ImageField(upload_to="pics/",
                            verbose_name='График доходности',
                            blank=True)
+    """Картинка с графиком изменения СЧА"""
 
     class Meta:
         ordering = ['title']
@@ -49,6 +61,7 @@ class Strategy(models.Model):
 
 
 class StrategyTag(models.Model):
+    """Теги для стратегий"""
     name = models.CharField(max_length=100, unique=True)
 
     class Meta:
@@ -61,6 +74,7 @@ class StrategyTag(models.Model):
 
 
 class StrategyCategory(models.Model):
+    """Категории для стратегий"""
     name = models.CharField(max_length=32, unique=True)
 
     class Meta:
@@ -73,6 +87,7 @@ class StrategyCategory(models.Model):
 
 
 class StrategyAuthor(models.Model):
+    """Автор стратегии"""
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
     email = models.EmailField(max_length=254)
@@ -91,6 +106,7 @@ class StrategyAuthor(models.Model):
 
 
 class Profile(models.Model):
+    """Профиль пользователя"""
     user = models.OneToOneField(User,
                                 on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -129,6 +145,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 
 class Subscription(models.Model):
+    """Подписка"""
     name = models.CharField(max_length=100,
                             unique=True,
                             verbose_name='Название')
@@ -143,6 +160,7 @@ class Subscription(models.Model):
 
 
 class SMSLog(models.Model):
+    """Журнал отправки смс"""
     code = models.PositiveIntegerField()
     receiver = models.CharField(max_length=32)
     status = models.CharField(max_length=32)
