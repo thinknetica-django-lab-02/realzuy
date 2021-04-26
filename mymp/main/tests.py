@@ -108,4 +108,5 @@ class MainViewsTest(TestCase):
             min_nav=100,
             annual_return=10)
         response = self.client.get('/strategies/%d/' % (strategy.id,))
+        print(response.content)
         self.assertTemplateUsed(response, 'main/strategy_detail.html')

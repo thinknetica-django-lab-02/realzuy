@@ -15,4 +15,7 @@
   После фильтра: {{ some_text|my_text_reverse }} </p>
 
   <p class="lead">Текущее время сервера {% current_time "%H:%M" %}</p>
+  <a href="chat/room" target="_blank">Чат в отдельном окне </a>
+  <p>Чат на странице:</p>
+  {% include 'chat/chat.html' %}
 {% endblock %}

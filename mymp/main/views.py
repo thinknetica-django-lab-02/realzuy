@@ -56,6 +56,7 @@ class StrategyList(ListView):
 
 class StrategyDetail(DetailView):
     """Представление с карточкой стратегии"""
+    template_name = 'main/strategy_detail.html'
     model = Strategy
     context_object_name = 'strategy'
 
