@@ -1,0 +1,570 @@
+[
+{
+    "model": "main.strategy",
+    "pk": 1,
+    "fields": {
+        "title": "Strategy 1",
+        "description": "xxlsn",
+        "date_create": "2021-04-07",
+        "date_modify": "2021-04-07",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 10.0,
+        "min_nav": 1,
+        "pic_yield": "pics/books.png",
+        "tags": [
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 2,
+    "fields": {
+        "title": "Strategy 2",
+        "description": "ыыы",
+        "date_create": "2021-04-07",
+        "date_modify": "2021-04-07",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 1,
+        "annual_return": 10.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 3,
+    "fields": {
+        "title": "Strategy 3",
+        "description": "r",
+        "date_create": "2021-04-07",
+        "date_modify": "2021-04-07",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 2,
+        "annual_return": -5.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            2
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 4,
+    "fields": {
+        "title": "Strategy 4",
+        "description": "asss",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": true,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 5,
+    "fields": {
+        "title": "Strategy 5",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 6,
+    "fields": {
+        "title": "Strategy 6",
+        "description": "d",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 7,
+    "fields": {
+        "title": "Strategy 7",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 8,
+    "fields": {
+        "title": "Strategy 8",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 9,
+    "fields": {
+        "title": "Strategy 9",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 10,
+    "fields": {
+        "title": "Strategy 10",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 11,
+    "fields": {
+        "title": "Strategy 11",
+        "description": "",
+        "date_create": "2021-03-31",
+        "date_modify": "2021-03-31",
+        "is_active": false,
+        "id_category": 2,
+        "id_author": 5,
+        "annual_return": 7.0,
+        "min_nav": 100,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 12,
+    "fields": {
+        "title": "Стратегия из интерфейса 1",
+        "description": "1",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 4,
+        "pic_yield": "",
+        "tags": [
+            2
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 13,
+    "fields": {
+        "title": "2",
+        "description": "2",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            2
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 14,
+    "fields": {
+        "title": "3",
+        "description": "3",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 15,
+    "fields": {
+        "title": "1",
+        "description": "2",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 16,
+    "fields": {
+        "title": "12",
+        "description": "22",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 1,
+        "pic_yield": "",
+        "tags": [
+            2
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 17,
+    "fields": {
+        "title": "5",
+        "description": "5",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 5,
+        "pic_yield": "",
+        "tags": [
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 18,
+    "fields": {
+        "title": "55",
+        "description": "55",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 3,
+        "annual_return": 0.0,
+        "min_nav": 5,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 19,
+    "fields": {
+        "title": "77",
+        "description": "77",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 7.0,
+        "min_nav": 7,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 20,
+    "fields": {
+        "title": "66",
+        "description": "666er",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 5,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 21,
+    "fields": {
+        "title": "уцу",
+        "description": "цуц",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 2,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 22,
+    "fields": {
+        "title": "sd",
+        "description": "dsd",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": true,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": 2,
+        "pic_yield": "",
+        "tags": [
+            2
+        ]
+    }
+},
+{
+    "model": "main.strategy",
+    "pk": 23,
+    "fields": {
+        "title": "dd",
+        "description": "dsda",
+        "date_create": "2020-02-21",
+        "date_modify": "2020-02-21",
+        "is_active": false,
+        "id_category": 1,
+        "id_author": 1,
+        "annual_return": 0.0,
+        "min_nav": -1,
+        "pic_yield": "",
+        "tags": [
+            1
+        ]
+    }
+},
+{
+    "model": "main.strategytag",
+    "pk": 1,
+    "fields": {
+        "name": "стабильный доход"
+    }
+},
+{
+    "model": "main.strategytag",
+    "pk": 2,
+    "fields": {
+        "name": "низкая просадка"
+    }
+},
+{
+    "model": "main.strategycategory",
+    "pk": 1,
+    "fields": {
+        "name": "Внутридневная"
+    }
+},
+{
+    "model": "main.strategycategory",
+    "pk": 2,
+    "fields": {
+        "name": "Среднесрочная"
+    }
+},
+{
+    "model": "main.strategycategory",
+    "pk": 3,
+    "fields": {
+        "name": "Позиционная"
+    }
+},
+{
+    "model": "main.strategyauthor",
+    "pk": 1,
+    "fields": {
+        "first_name": "Иван",
+        "last_name": "Иванов",
+        "email": "author1@mail.ru"
+    }
+},
+{
+    "model": "main.strategyauthor",
+    "pk": 2,
+    "fields": {
+        "first_name": "Петр",
+        "last_name": "Петров",
+        "email": "petrov@gmail.com"
+    }
+},
+{
+    "model": "main.strategyauthor",
+    "pk": 3,
+    "fields": {
+        "first_name": "Иван",
+        "last_name": "Иванов",
+        "email": "author1@mail.ru"
+    }
+},
+{
+    "model": "main.strategyauthor",
+    "pk": 4,
+    "fields": {
+        "first_name": "Петр",
+        "last_name": "Петров",
+        "email": "petrov@gmail.com"
+    }
+},
+{
+    "model": "main.strategyauthor",
+    "pk": 5,
+    "fields": {
+        "first_name": "Сидр",
+        "last_name": "Сидоров",
+        "email": "sidorov@gmail.com"
+    }
+},
+{
+    "model": "main.profile",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "amind"
+        ],
+        "created_at": "2021-04-08T20:30:05.428Z",
+        "updated_at": "2021-04-20T09:50:27.477Z",
+        "birth_date": "1920-02-02",
+        "avatar": "users/52380_GdBacP6.jpg",
+        "phone_number": "",
+        "is_phone_confirmed": false,
+        "subscriptions": [
+            2,
+            1
+        ]
+    }
+},
+{
+    "model": "main.profile",
+    "pk": 43,
+    "fields": {
+        "user": [
+            "hhhhh"
+        ],
+        "created_at": "2021-04-17T10:39:58.419Z",
+        "updated_at": "2021-04-17T10:39:59.535Z",
+        "birth_date": null,
+        "avatar": "",
+        "phone_number": "",
+        "is_phone_confirmed": false,
+        "subscriptions": []
+    }
+},
+{
+    "model": "main.subscription",
+    "pk": 1,
+    "fields": {
+        "name": "Новые стратегии"
+    }
+},
+{
+    "model": "main.subscription",
+    "pk": 2,
+    "fields": {
+        "name": "Новости сервиса"
+    }
+}
+]
