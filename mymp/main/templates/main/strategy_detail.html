@@ -4,7 +4,7 @@
 
 {% block content %}
     <h2>{{ strategy.title }}</h2>
-    <p> Просмотров страницы: {{ view_counter }}</p>
+    <p> Просмотров12 страницы: {{ view_counter }}</p>
     <p class="card-body">
         {% thumbnail strategy.pic_yield "100x100" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">

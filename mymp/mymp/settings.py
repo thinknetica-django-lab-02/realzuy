@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'django_celery_results',
     'phonenumber_field',
+    'channels',
+    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -182,16 +184,26 @@ TWILIO_SID = config('TWILIO_SID')
 TWILIO_TOKEN = config('TWILIO_TOKEN')
 TWILIO_FROM_NUMBER = config('TWILIO_FROM_NUMBER')
 
-CACHE_MIDDLEWARE_ALIAS = 'default'  # which cache alias to use
-CACHE_MIDDLEWARE_SECONDS = 600   # number of seconds to cache a page for (TTL)
-CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared across multiple sites that use the same Django instance
-CACHES = {
+# CACHE_MIDDLEWARE_ALIAS = 'default'  # which cache alias to use
+# CACHE_MIDDLEWARE_SECONDS = 600   # number of seconds to cache a page for (TTL)
+# CACHE_MIDDLEWARE_KEY_PREFIX = ''    # should be used if the cache is shared across multiple sites that use the same Django instance
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': config('REDIS_CACHE_LOCATION'),
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     }
+# }
+
+ASGI_APPLICATION = 'mymp.asgi.application'
+CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': config('REDIS_CACHE_LOCATION'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [config('CHANNEL_REDIS_HOST')],
+        },
+    },
 }
 

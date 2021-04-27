@@ -1,6 +1,7 @@
 from django import template
 import datetime
 from django.template.defaultfilters import stringfilter
+from datetime import datetime
 
 register = template.Library()
 
@@ -13,7 +14,7 @@ def my_text_reverse(value):
 
 @register.simple_tag
 def current_time(format_string):
-    return datetime.datetime.now().strftime(format_string)
+    return datetime.now().strftime(format_string)
 
 
 @register.simple_tag

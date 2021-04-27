@@ -18,7 +18,7 @@ urlpatterns = [
          cache_page(CACHE_MIDDLEWARE_SECONDS)(StrategyList.as_view()),
          name='strategies'),
     path('strategies/<int:pk>/',
-         StrategyDetail.as_view(template_name='main/strategy_detail.html'),
+         StrategyDetail.as_view(),
          name='strategy-detail'),
     path('accounts/profile/',
          views.update_profile,
@@ -33,6 +33,7 @@ urlpatterns = [
     path('strategies/<int:pk>/edit/',
          StrategyUpdate.as_view(),
          name='strategy-form'),
+    path('chat/', include('chat.urls')),
 ]
 handler404 = error_404
 
