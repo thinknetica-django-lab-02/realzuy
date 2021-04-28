@@ -34,9 +34,9 @@ class StrategyFactory(DjangoModelFactory):
     #ни один из вариантов создания категории и автора не заработал
     #ошибка:CommandError: error: Cannot assign "(<StrategyCategory: Внутридневная>,)": "Strategy.id_category" must be a "StrategyCategory" instance.
     #id_category = SubFactory(StrategyCategoryFactory, name='Внутридневная'),
-    #id_category = StrategyCategory.objects.get(id=1),
+    id_category = StrategyCategory.objects.get(id=1),
     #id_category = StrategyCategoryFactory(name='Внутридневная'),
-    id_category = Iterator(StrategyCategory.objects.all()),
+    #id_category = Iterator(StrategyCategory.objects.all()),
     id_author = SubFactory(StrategyAuthorFactory, email='a@a.ru'),
     min_nav = faker.random_int(),
     annual_return = faker.random_int()
@@ -59,7 +59,10 @@ class Command(BaseCommand):
             )
             self.stdout.write(self.style.SUCCESS('strategy created: ' + strategy.title))
 
-            strategy = StrategyFactory()
+            StrategyCategoryFactory.create()
+            StrategyAuthorFactory.create()
+
+            strategy = StrategyFactory.create()
             self.stdout.write(self.style.SUCCESS('strategy created: ' + strategy.title))
         except Exception as e:
             raise CommandError('error: ' + str(e))
