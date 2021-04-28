@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from factory import SubFactory, Iterator
+from factory import SubFactory
 from factory.django import DjangoModelFactory
 from main.models import Strategy, StrategyCategory, StrategyAuthor
 from datetime import datetime
@@ -8,12 +8,14 @@ from faker import Factory
 faker = Factory.create()
 today = datetime.now()
 
+
 class StrategyCategoryFactory(DjangoModelFactory):
     class Meta:
         model = StrategyCategory
         django_get_or_create = ('name',)
 
     name = faker.word()
+
 
 class StrategyAuthorFactory(DjangoModelFactory):
     class Meta:
@@ -24,21 +26,17 @@ class StrategyAuthorFactory(DjangoModelFactory):
     last_name = faker.name()
     email = faker.email()
 
+
 class StrategyFactory(DjangoModelFactory):
     class Meta:
         model = Strategy
 
-    title = faker.word(),
-    date_create = today,
-    date_modify = today,
-    #ни один из вариантов создания категории и автора не заработал
-    #ошибка:CommandError: error: Cannot assign "(<StrategyCategory: Внутридневная>,)": "Strategy.id_category" must be a "StrategyCategory" instance.
-    #id_category = SubFactory(StrategyCategoryFactory, name='Внутридневная'),
-    id_category = StrategyCategory.objects.get(id=1),
-    #id_category = StrategyCategoryFactory(name='Внутридневная'),
-    #id_category = Iterator(StrategyCategory.objects.all()),
-    id_author = SubFactory(StrategyAuthorFactory, email='a@a.ru'),
-    min_nav = faker.random_int(),
+    title = faker.word()
+    date_create = today
+    date_modify = today
+    id_category = SubFactory(StrategyCategoryFactory, name='Внутридневная')
+    id_author = SubFactory(StrategyAuthorFactory, email='a@a.ru')
+    min_nav = faker.random_int()
     annual_return = faker.random_int()
 
 
@@ -47,21 +45,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            #создание объекта не из класса DjangoModelFactory работает
-            strategy = Strategy.objects.create(
-                title=faker.word(),
-                date_create=today,
-                date_modify=today,
-                id_category=StrategyCategoryFactory(name='Внутридневная'),
-                id_author=StrategyAuthorFactory(email='a@a.ru'),
-                min_nav=faker.random_int(),
-                annual_return=faker.random_int()
-            )
-            self.stdout.write(self.style.SUCCESS('strategy created: ' + strategy.title))
-
-            StrategyCategoryFactory.create()
-            StrategyAuthorFactory.create()
-
             strategy = StrategyFactory.create()
             self.stdout.write(self.style.SUCCESS('strategy created: ' + strategy.title))
         except Exception as e:
