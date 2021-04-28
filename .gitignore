@@ -13,3 +13,4 @@ credentials.py
 *.dat
 *.dir
 *.env
+/mymp/static/

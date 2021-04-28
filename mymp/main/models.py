@@ -22,6 +22,9 @@ class Strategy(models.Model):
     is_active = models.BooleanField(default=False,
                                     verbose_name='Состояние')
     """Активна ли стратегия на текущий момент True=Активна"""
+    is_archive = models.BooleanField(default=False,
+                                    verbose_name='Архивная стратегия')
+    """Архивна ли стратегия True=В архиве"""
     id_category = models.ForeignKey('StrategyCategory',
                                     on_delete=models.CASCADE,
                                     verbose_name='Категория')
