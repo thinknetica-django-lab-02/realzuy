@@ -8,7 +8,7 @@ from django.http import HttpRequest
 
 from main.models import Strategy, \
     StrategyCategory, StrategyTag, Profile, \
-    Subscription, SMSLog
+    Subscription, SMSLog, StrategyAuthor
 
 
 class FlatPageAdmin(FlatPageAdmin):
@@ -47,7 +47,7 @@ class StrategyAdmin(admin.ModelAdmin):
     actions = [make_archived, make_unarchived, make_active, make_inactive]
     list_filter = ('id_category', 'is_active', 'is_archive', 'id_author', 'tags')
     search_fields = ('title', 'description')
-    readonly_fields = ('date_create',)
+    readonly_fields = ('description',)
 
     fieldsets = (
         ('General Info', {
@@ -55,7 +55,7 @@ class StrategyAdmin(admin.ModelAdmin):
         }),
         ('Advanced', {
             'classes': ('collapse',),
-            'fields': ('id_author', 'tags'),
+            'fields': ('id_author', 'tags', 'date_create', 'date_modify'),
         })
     )
 
@@ -74,6 +74,9 @@ class StrategyTagAdmin(admin.ModelAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(StrategyAuthor)
+class StrategyAuthorAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
