@@ -7,7 +7,7 @@ from django.db.models import QuerySet
 from django.http import HttpRequest
 
 from main.models import Strategy, \
-    StrategyCategory, StrategyTag, Profile, \
+    StrategyCategory, Profile, \
     Subscription, SMSLog, StrategyAuthor
 
 
@@ -23,7 +23,7 @@ admin.site.register(FlatPage, FlatPageAdmin)
 
 @admin.register(Strategy)
 class StrategyAdmin(admin.ModelAdmin):
-
+    """Стратегия"""
     def make_archived(self, request: HttpRequest, queryset: QuerySet) -> None:
         queryset.update(is_archive=True)
 
@@ -49,9 +49,12 @@ class StrategyAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     readonly_fields = ('description',)
 
+    list_display = (
+        'id', 'title', 'description', 'id_category', 'id_author', 'date_create', 'date_modify', 'is_active', 'is_archive', 'min_nav','tags')
+
     fieldsets = (
         ('General Info', {
-            'fields': ('title', 'is_active', 'is_archive', 'id_category', 'min_nav')
+            'fields': ('title', 'description', 'is_active', 'is_archive', 'id_category', 'min_nav')
         }),
         ('Advanced', {
             'classes': ('collapse',),
@@ -62,27 +65,25 @@ class StrategyAdmin(admin.ModelAdmin):
 
 @admin.register(StrategyCategory)
 class StrategyCategoryAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(StrategyTag)
-class StrategyTagAdmin(admin.ModelAdmin):
-    pass
+    """Категории стратегий"""
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    """Профили пользователей"""
+
 
 @admin.register(StrategyAuthor)
 class StrategyAuthorAdmin(admin.ModelAdmin):
-    pass
+    """Автор"""
+    list_display = (
+        'id', 'first_name', 'last_name', 'email')
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    pass
+    """Подписки"""
 
 
 @admin.register(SMSLog)
 class SMSLogAdmin(admin.ModelAdmin):
-    pass
+    """Журнал смс"""

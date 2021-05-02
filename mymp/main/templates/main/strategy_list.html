@@ -8,7 +8,7 @@
     <ul>
         {% for strategy in strategies %}
             <li><a href="{% url 'strategy-detail' strategy.id %}">{{ strategy.title }}</a> (Доходность: {{ strategy.annual_return }}%,
-                Теги: {% for tag in strategy.tags.all %} <a href="{{ request.path }}?tag={{ tag }}">{{ tag }}</a> {% if not forloop.last %}, {% endif %}{% endfor %} )</li>
+               Теddги: {% for tag in strategy.tags %} <a href="{{ request.path }}?tag={{ tag }}">{{ tag }}</a> {% if not forloop.last %}, {% endif %}{% endfor %} )</li>
         {% endfor %}
     </ul>
 
