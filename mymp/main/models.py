@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 from .tasks import send_welcome_message_schedule
 from phonenumber_field.modelfields import PhoneNumberField
-
+from django.contrib.postgres.fields import ArrayField
 
 class Strategy(models.Model):
     """Стратегия"""
@@ -36,7 +36,8 @@ class Strategy(models.Model):
     annual_return = models.FloatField(default=0,
                                       verbose_name="Годовая доходность")
     """Годовая доходность"""
-    tags = models.ManyToManyField('StrategyTag')
+    tags = ArrayField(
+        models.CharField(max_length=32, blank=True), blank=True)
     """Теги"""
     min_nav = models.IntegerField(null=False,
                                   verbose_name='Минимальный СЧА')
@@ -61,19 +62,6 @@ class Strategy(models.Model):
 
     def __str__(self) -> str:
         return self.title
-
-
-class StrategyTag(models.Model):
-    """Теги для стратегий"""
-    name = models.CharField(max_length=100, unique=True)
-
-    class Meta:
-        ordering = ['name']
-        verbose_name = 'Тег для стратегий'
-        verbose_name_plural = 'Теги для стратегий'
-
-    def __str__(self) -> str:
-        return self.name
 
 
 class StrategyCategory(models.Model):

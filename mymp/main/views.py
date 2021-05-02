@@ -33,7 +33,7 @@ class StrategyList(ListView):
     model = Strategy
     context_object_name = 'strategies'
     queryset = Strategy.objects.order_by('-annual_return')
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super(StrategyList, self).get_context_data(**kwargs)
