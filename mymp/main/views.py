@@ -14,6 +14,7 @@ from django.core.cache import cache
 from django.http import HttpRequest, HttpResponse
 from django.db.models import QuerySet
 from typing import Dict, Any, Union
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 def error_404(request: HttpRequest, exception) -> HttpResponse:
     return render(request, 'errors/404.html')
@@ -26,32 +27,6 @@ def index(request: HttpRequest) -> HttpResponse:
         context={'turn_on_block': True,
                  'some_text': 'Привет, мир!'},
     )
-
-
-class StrategyList(ListView):
-    """Представление со списком стратегий"""
-    model = Strategy
-    context_object_name = 'strategies'
-    queryset = Strategy.objects.order_by('-annual_return')
-    paginate_by = 10
-
-    def get_context_data(self, **kwargs) -> Dict[str, Any]:
-        context = super(StrategyList, self).get_context_data(**kwargs)
-        tag = self.request.GET.get('tag')
-        context['tag'] = tag
-        if tag is not None:
-            context['tag_url'] = "&tag=" + tag
-        else:
-            context['tag_url'] = ""
-
-        return context
-
-    def get_queryset(self) -> QuerySet[Any]:
-        queryset = super().get_queryset()
-        tag = self.request.GET.get('tag')
-        if tag:
-            return queryset.filter(tags__name=tag)
-        return queryset
 
 
 class StrategyDetail(DetailView):
@@ -176,3 +151,36 @@ def phone_number_confirmation(request: HttpRequest) -> HttpResponse:
         confirm_message = 'Вы уже подтвердили номер телефона ранее'
         request.session['confirm_message'] = confirm_message
         return redirect('profile-update')
+
+
+class StrategyList(ListView):
+    """Представление со списком стратегий"""
+    model = Strategy
+    context_object_name = 'strategies'
+    queryset = Strategy.objects.order_by('-annual_return')
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super(StrategyList, self).get_context_data(**kwargs)
+        tag = self.request.GET.get('tag')
+        context['tag'] = tag
+        if tag is not None:
+            context['tag_url'] = "&tag=" + tag
+        else:
+            context['tag_url'] = ""
+
+        return context
+
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = super().get_queryset()
+
+        if query := self.request.GET.get('search'):
+            queryset = queryset.annotate(search=
+                                         SearchVector('title', 'description'),)\
+                .filter(search=query)
+
+        tag = self.request.GET.get('tag')
+        if tag:
+            return queryset.filter(tags__contains=[tag])
+
+        return queryset

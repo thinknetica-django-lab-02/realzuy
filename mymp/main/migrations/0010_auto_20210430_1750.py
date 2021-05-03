@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='strategy',
             name='tags',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=32), blank=True, default='{default}', size=None),
+            field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=32), blank=True, default='{}', size=None),
             preserve_default=False,
         ),
         migrations.DeleteModel(
