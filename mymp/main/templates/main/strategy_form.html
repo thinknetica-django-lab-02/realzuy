@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends request.is_mobile|yesno:"base_mobile.html,base.html" %}
 {% load my_filters %}
 
 {% block title %}<title>{{form_title}}</title>{% endblock %}

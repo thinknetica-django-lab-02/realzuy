@@ -23,7 +23,7 @@ admin.site.register(FlatPage, FlatPageAdmin)
 
 @admin.register(Strategy)
 class StrategyAdmin(admin.ModelAdmin):
-    """Стратегия"""
+    """Стратегия."""
     def make_archived(self, request: HttpRequest, queryset: QuerySet) -> None:
         queryset.update(is_archive=True)
 
@@ -65,25 +65,25 @@ class StrategyAdmin(admin.ModelAdmin):
 
 @admin.register(StrategyCategory)
 class StrategyCategoryAdmin(admin.ModelAdmin):
-    """Категории стратегий"""
+    """Категории стратегий."""
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    """Профили пользователей"""
+    """Профили пользователей."""
 
 
 @admin.register(StrategyAuthor)
 class StrategyAuthorAdmin(admin.ModelAdmin):
-    """Автор"""
+    """Автор."""
     list_display = (
         'id', 'first_name', 'last_name', 'email')
 
 @admin.register(Subscription)
 class SubscriptionAdmin(admin.ModelAdmin):
-    """Подписки"""
+    """Подписки."""
 
 
 @admin.register(SMSLog)
 class SMSLogAdmin(admin.ModelAdmin):
-    """Журнал смс"""
+    """Журнал смс."""

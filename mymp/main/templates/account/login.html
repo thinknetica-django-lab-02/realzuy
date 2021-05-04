@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends request.is_mobile|yesno:"base_mobile.html,base.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}

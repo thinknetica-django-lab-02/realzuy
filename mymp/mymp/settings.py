@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.cache.FetchFromCacheMiddleware',
+    'main.middleware.MyMobileLayoutMiddleware',
 ]
 
 SITE_ID = 1
