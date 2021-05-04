@@ -1,5 +1,15 @@
 version: '3'
 services:
+  postgres-db:
+    image: postgres:12.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=django_dev
+    ports:
+      - '5432:5432'
   redis:
     image: redis
     restart: always
@@ -11,11 +21,17 @@ services:
     build: .
     restart: always
     container_name: 'mymp'
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python3 manage.py migrate&&
+             python3 manage.py wait_for_db &&
+             python3 manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/usr/src/app
     ports:
       - '8000:8000'
+    depends_on:
+      - postgres-db
+
   celery:
     build: .
     container_name: 'mymp_celery'
@@ -27,3 +43,6 @@ services:
     depends_on:
       - web
       - redis
+      - postgres-db
+volumes:
+  postgres_data:
