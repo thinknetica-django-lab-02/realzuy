@@ -157,3 +157,19 @@ class SMSLog(models.Model):
     status = models.CharField(max_length=32)
     date_create = models.DateTimeField(auto_now_add=True)
     date_sent = models.DateTimeField(auto_now_add=True)
+
+
+class StrategyView(models.Model):
+    """Пример работы с view"""
+    title = models.CharField(max_length=64,
+                             verbose_name="Название")
+
+    category_name = models.CharField(max_length=64,
+                             verbose_name="Категория")
+
+    author_name = models.CharField(max_length=64,
+                             verbose_name="Автор")
+
+    class Meta:
+        managed = False
+        db_table = 'StrategyView'
