@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.views.generic.edit import CreateView, UpdateView
@@ -25,7 +26,10 @@ def index(request: HttpRequest) -> HttpResponse:
         request,
         'index.html',
         context={'turn_on_block': True,
-                 'some_text': 'Привет, мир!'},
+                 'some_text': 'Привет, мир!',
+                 'title': 'mymp.ru',
+                 'description': 'Какое-то описание интернет-магазина',
+                 'image': 'img/logo.png'},
     )
 
 
@@ -46,6 +50,8 @@ class StrategyDetail(DetailView):
         cache.set(counter_name, view_counter, timeout=60)
         context['view_counter'] = view_counter
 
+        context['title'] = f'{context["strategy"].title}'
+        context['description'] = f'Детальная информация о стратегии {context["strategy"].description}'
         return context
 
 
@@ -168,6 +174,9 @@ class StrategyList(ListView):
             context['tag_url'] = "&tag=" + tag
         else:
             context['tag_url'] = ""
+
+        context['title'] = 'Список стратегий'
+        context['description'] = 'Какое-то описание страницы стратегий'
 
         return context
 

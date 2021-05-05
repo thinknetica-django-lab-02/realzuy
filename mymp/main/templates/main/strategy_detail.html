@@ -2,6 +2,9 @@
 {% load my_filters %}
 {% load thumbnail %}
 
+{% block title %}Стратегия {{ strategy.title }} {% endblock %}
+{% block description %}Детальная информация о стратегии {{ strategy.title }}{% endblock %}
+
 {% block content %}
     <h2>{{ strategy.title }}</h2>
     <p> Просмотров12 страницы: {{ view_counter }}</p>
