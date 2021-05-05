@@ -2,10 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 from sorl.thumbnail import ImageField
 from .tasks import send_welcome_message_schedule
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.postgres.fields import ArrayField
+
 
 class Strategy(models.Model):
     """Стратегия"""
@@ -23,7 +25,7 @@ class Strategy(models.Model):
                                     verbose_name='Состояние')
     """Активна ли стратегия на текущий момент True=Активна"""
     is_archive = models.BooleanField(default=False,
-                                    verbose_name='Архивная стратегия')
+                                     verbose_name='Архивная стратегия')
     """Архивна ли стратегия True=В архиве"""
     id_category = models.ForeignKey('StrategyCategory',
                                     on_delete=models.CASCADE,
@@ -62,6 +64,9 @@ class Strategy(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('strategy-detail', kwargs={'pk': self.id})
 
 
 class StrategyCategory(models.Model):
@@ -165,10 +170,10 @@ class StrategyView(models.Model):
                              verbose_name="Название")
 
     category_name = models.CharField(max_length=64,
-                             verbose_name="Категория")
+                                     verbose_name="Категория")
 
     author_name = models.CharField(max_length=64,
-                             verbose_name="Автор")
+                                   verbose_name="Автор")
 
     class Meta:
         managed = False

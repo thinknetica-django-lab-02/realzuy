@@ -14,11 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.flatpages.sitemaps import FlatPageSitemap
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from django.views.generic.base import TemplateView
+from main.sitemap import  StrategySitemap
+
+
+sitemaps = {
+    'static': FlatPageSitemap,
+    'strategies': StrategySitemap,
+}
 
 urlpatterns = [
     path('', include('main.urls')),
     path('admin/', admin.site.urls),
     path('main/', include('main.urls')),
     path('pages/', include('django.contrib.flatpages.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
 ]
