@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'channels',
     'chat.apps.ChatConfig',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
