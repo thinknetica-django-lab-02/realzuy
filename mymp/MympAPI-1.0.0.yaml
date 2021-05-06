@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  description: "MyMP API for strategies"
+  version: "1.0.0"
+  title: "Strategies API"
+  contact:
+    email: a@a.ru
+tags:
+  - name: strategy
+    description: Everything about strategy
+  - name: author
+    description: Everything about strategy author
+  - name: category
+    description: Everything about strategy category
+paths:
+  /strategies:
+    post:
+      tags:
+        - strategy
+      summary: Add a new strategy
+      operationId: addStrategy
+      responses:
+        '405':
+          description: Invalid input
+  /strategies/findByTags:
+    get:
+      tags:
+        - strategy
+      summary: Finds Strategies by tags
+      description: >-
+        Muliple tags can be provided with comma separated strings. Use\ \ tag1,
+        tag2, tag3 for testing.
+      operationId: findStrategiesByTags
+      parameters:
+        - name: tags
+          in: query
+          description: Tags to filter by
+          required: true
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Strategy'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Strategy'
+        '400':
+          description: Invalid tag value
+  '/strategies/{strategyId}':
+    get:
+      tags:
+        - strategy
+      summary: Find strategy by ID
+      description: Returns a strategy
+      operationId: getStrategyById
+      parameters:
+        - name: strategyId
+          in: path
+          description: ID of strategy to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Strategy'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Strategy not found
+    post:
+      tags:
+        - strategy
+      summary: Update an existing strategy
+      operationId: updateStrategyWithForm
+      parameters:
+        - name: strategyId
+          in: path
+          description: ID of strategy that needs to be updated
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - strategy
+      summary: Deletes a strategy
+      operationId: deleteStrategy
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: strategyId
+          in: path
+          description: Strategy id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Strategy not found
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: Category
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+      xml:
+        name: Author
+    Strategy:
+      type: object
+      required:
+        - title
+      properties:
+        id:
+          type: integer
+          format: int64
+        title:
+          type: string
+        description:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        author:
+          $ref: '#/components/schemas/Author'
+        tags:
+          type: "array"
+          items:
+            type: string
+        image:
+          type: "string"
+          format: "binary"
+        is_active:
+          type: boolean
+        min_nav:
+          type: integer
+          format: int64
+        annual_return:
+          type: number
+          format: float
+      xml:
+        name: Strategy
