@@ -37,4 +37,5 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
