@@ -174,6 +174,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
 CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
@@ -213,6 +214,7 @@ CHANNEL_LAYERS = {
     },
 }
 
+
 # SENTRY
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
@@ -231,7 +233,9 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
