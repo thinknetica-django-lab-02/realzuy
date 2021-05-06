@@ -19,12 +19,16 @@ from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView
 from main.sitemap import  StrategySitemap
-
+from rest_framework.routers import DefaultRouter
+from main import api
 
 sitemaps = {
     'static': FlatPageSitemap,
     'strategies': StrategySitemap,
 }
+
+router = DefaultRouter()
+router.register('strategies', api.StrategyViewSet, 'strategies')
 
 urlpatterns = [
     path('', include('main.urls')),
@@ -37,5 +41,5 @@ urlpatterns = [
         "robots.txt",
         TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
     ),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include(router.urls)),
 ]
