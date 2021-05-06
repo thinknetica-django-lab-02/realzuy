@@ -28,7 +28,7 @@ sitemaps = {
 }
 
 router = DefaultRouter()
-router.register('strategies', api.StrategyViewSet)
+router.register('strategies', api.StrategyViewSet, 'strategies')
 
 urlpatterns = [
     path('', include('main.urls')),
