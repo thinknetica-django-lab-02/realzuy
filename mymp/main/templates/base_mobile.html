@@ -3,13 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    {% block title %}<title> {{ flatpage.title }}</title>{% endblock %}
+
+    <meta property="og:title" content="{{ title }} {{ flatpage.title }}" />
+	<meta property="og:image" content="{{ image }} {{ flatpage.image }}" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="{{ request.build_absolute_uri }}" />
+	<meta name="description" content="{{ description }} {{ flatpage.description }}">
+	<meta name="og:description" content="{{ description }} {{ flatpage.description }}">
+
+    <link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
+
+
+    <title> {{ title }} {{ flatpage.title }}</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     {% load static %}
     <link href="{% static 'css/starter-template.css' %}" rel="stylesheet">
+
+    <script type="application/ld+json">
+	{
+	  "@context": "https://schema.org",
+	  "@type": "website",
+	  "name": "Mymp: {{ title }}{{ flatpage.title }}",
+	  "url": "{{ request.build_absolute_uri }}",
+	  "logo": "img/logo-ico.png"
+	}
+	</script>
   </head>
   <body>
 
