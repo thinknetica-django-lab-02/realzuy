@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'channels',
     'chat.apps.ChatConfig',
     'django.contrib.sitemaps',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -229,3 +230,8 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
