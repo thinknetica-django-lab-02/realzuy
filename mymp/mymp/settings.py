@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'chat.apps.ChatConfig',
     'django.contrib.sitemaps',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -236,6 +237,7 @@ sentry_sdk.init(
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGE_SIZE': 10
 }
 
